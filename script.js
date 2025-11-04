@@ -1,7 +1,6 @@
 let seconds = 7;
 const timer = document.getElementById("timer");
 const redirectBtn = document.getElementById("redirectBtn");
-
 const redirectURL = "https://knew.network";
 
 redirectBtn.addEventListener("click", () => {

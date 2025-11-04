@@ -1,23 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>R4W.Space | Gateway to KNEW.Network</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>R4W · Gateway — KNEW.Network</title>
+  <meta name="description" content="R4W → KNEW.Network. Explore the public Knowledge Network and its enterprise verification layer, KNEW v2." />
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>KNEW.Network</h1>
-    <h2 class="subtitle">The Future of R4W</h2>
-    <p class="desc">
-      R4W was the seed — an idea of rebellion, design, and truth.<br>
-      It now grows into <strong>KNEW.Network</strong> — a platform where news, intellect, and connection merge.
-    </p>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <a href="/" aria-label="R4W home"><strong>R4W</strong> · Gateway</a>
+      </div>
 
-    <button id="redirectBtn">Enter KNEW.Network</button>
-    <p class="note">You’ll be redirected automatically in <span id="timer">7</span> seconds...</p>
-  </div>
+      <nav class="nav">
+        <button id="enterBtn" class="btn-primary">Enter KNEW.Network</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <h1>KNEW.Network</h1>
+          <p class="lead">Knowledge Network of Every Witness — mapping truth, news, and verification across the globe.</p>
+
+          <div class="actions">
+            <button id="enterBtnHero" class="btn-primary">Enter KNEW.Network</button>
+            <button id="learnBtn" class="btn-ghost">Learn More</button>
+          </div>
+
+          <p class="timer-note">Auto-redirect in <span id="timer">0</span> seconds — or click “Enter”.</p>
+        </div>
+
+        <div class="hero-card">
+          <h3>Two products. One mission.</h3>
+          <p><strong>KNEW</strong> — public, multilingual news map with AI neutral summaries and bias detection.<br>
+             <strong>KNEW v2</strong> — enterprise-grade verification infrastructure with geo-temporal provenance and deepfake detection.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about wrap">
+      <article class="card">
+        <h2>KNEW — The public Knowledge Network</h2>
+        <p class="muted">An interactive, location-driven news platform built to show not just headlines, but context: neutral summaries, bias detection, and ownership transparency — in five languages.</p>
+
+        <ul class="features">
+          <li><strong>AI summaries & bias detection</strong> — neutral 80-word summaries and LEFT/CENTER/RIGHT bias tags.</li>
+          <li><strong>Interactive global map</strong> — discover stories by location and drop witness pins.</li>
+          <li><strong>Multilingual</strong> — English, Portuguese, Spanish, French, German with language-specific caching.</li>
+          <li><strong>Realtime processing</strong> — background job queue (BullMQ + Redis) and WebSocket updates.</li>
+        </ul>
+
+        <p class="cta-note">KNEW is for citizens, journalists, and analysts who need a clearer map of truth.</p>
+      </article>
+
+      <article class="card">
+        <h2>KNEW v2 — The Verification Layer for Human Reality</h2>
+        <p class="muted">Enterprise trust infrastructure for capturing, verifying, and structuring real-world human data with geo-temporal context.</p>
+
+        <ul class="features">
+          <li><strong>Verification Engine</strong> — secure media ingestion, GPS + timestamps, provenance hashing (SHA-256), deepfake detection.</li>
+          <li><strong>Context Orchestrator</strong> — sentiment, credibility scoring, event correlation, and political inference (roadmap).</li>
+          <li><strong>Intelligence Layer</strong> — enterprise REST API, verified data feeds, dashboards, and CSV/JSON exports.</li>
+          <li><strong>Secure & Scalable</strong> — PostgreSQL (Neon), Supabase storage + IPFS, Clerk auth, Upstash Redis/QStash.</li>
+        </ul>
+
+        <p class="cta-note">KNEW v2 is the backend of truth for companies, platforms, and investigators who require verified proof-of-reality.</p>
+      </article>
+    </section>
+
+    <section class="get-started wrap">
+      <div class="grid">
+        <div>
+          <h3>Quick Start (dev)</h3>
+          <pre class="code">
+# install
+npm install
+
+# env
+cp .env.example .env.local
+
+# migrate
+npm run db:migrate
+
+# dev
+npm run dev
+          </pre>
+        </div>
+        <div>
+          <h3>Where it runs</h3>
+          <p>Deploy on Vercel (static gateway) and host the main KNEW app on Replit / cloud. Use Upstash for Redis queue and HuggingFace/Sensity for AI checks.</p>
+          <p class="small">Want this landing updated with your brand colors or a hero video? I’ll do it.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap foot-grid">
+        <div>
+          <strong>KNEW</strong> · Knowledge Network of Every Witness
+        </div>
+        <div class="links">
+          <a href="mailto:hello@r4w.space">hello@r4w.space</a>
+          <span>·</span>
+          <a href="https://knew.network" target="_blank" rel="noopener">knew.network</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

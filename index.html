@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KNEW — A New System of Reality</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KNEW v2 — The Verification Layer for Human Reality</title>
   <style>
     :root {
-      --bg: #0a0a0a;
-      --fg: #f2f2f2;
-      --accent: #5f3ef9;
+      --accent: #6b23dc;
+      --text-dark: #111;
+      --text-light: #444;
+      --bg: #f7f7f7;
+      --glass: rgba(255, 255, 255, 0.6);
     }
 
     * {
@@ -20,9 +22,9 @@
     html, body {
       height: 100%;
       width: 100%;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      color: var(--text-dark);
       background: var(--bg);
-      color: var(--fg);
       overflow: hidden;
     }
 
@@ -30,93 +32,130 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
       flex-direction: column;
-      padding: 0 2rem;
+      text-align: center;
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,245,245,0.8));
     }
 
-    .fade {
-      opacity: 0;
+    .container {
+      max-width: 900px;
+      padding: 4rem 2rem;
+      background: var(--glass);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 2s ease-out forwards;
       transform: translateY(20px);
-      animation: fadeInUp 1.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     h1 {
+      font-weight: 100;
       font-size: clamp(2rem, 6vw, 5rem);
-      font-weight: 400;
       letter-spacing: -0.02em;
-      line-height: 1.1;
-      background: linear-gradient(90deg, #fff, var(--accent));
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #000, var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-weight: 300;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--text-light);
+      margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
 
     p {
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      color: rgba(255, 255, 255, 0.75);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
       line-height: 1.6;
-      max-width: 720px;
-      margin: 0 auto 2.5rem;
-      animation-delay: 0.4s;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.85rem;
-      opacity: 0.5;
-      letter-spacing: 0.05em;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes grain {
-      0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-10px, 5px); }
-      40% { transform: translate(5px, -10px); }
-      60% { transform: translate(-5px, 10px); }
-      80% { transform: translate(10px, -5px); }
-    }
-
-    .grain {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgWAcAAg8A9h7+lQAAAABJRU5ErkJggg==');
-      opacity: 0.07;
-      animation: grain 8s steps(10) infinite;
-      pointer-events: none;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
     }
 
     .accent-line {
       width: 80px;
       height: 2px;
       background: var(--accent);
-      margin: 1.5rem auto 2.5rem;
+      margin: 2rem auto;
       opacity: 0.9;
-      animation: fadeInUp 2s ease-out forwards;
-      animation-delay: 0.7s;
     }
 
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #777;
+      letter-spacing: 0.05em;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(107, 35, 220, 0.3);
+    }
+
+    .button:hover {
+      background: #5a1dc0;
+      transform: scale(1.03);
+      box-shadow: 0 4px 28px rgba(107, 35, 220, 0.4);
+    }
+
+    .logo {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      width: 56px;
+      height: 56px;
+      animation: spinIn 1.2s ease-out;
+    }
+
+    @keyframes spinIn {
+      from { transform: rotate(-360deg) scale(0); opacity: 0; }
+      to { transform: rotate(0) scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 2.5rem 1.5rem;
+      }
+      .logo {
+        width: 42px;
+        height: 42px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="grain"></div>
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Butterfly_icon.svg" alt="KNEW logo" />
 
-  <div class="fade">
-    <p>We stopped believing what we see.</p>
-    <p>But reality never stopped existing.</p>
+  <div class="container">
+    <h1>KNEW</h1>
+    <h2>The Future of Verified Reality</h2>
     <div class="accent-line"></div>
-    <h1>This is KNEW.</h1>
+    <p>We stopped believing what we see. But reality never stopped existing — it just needed a system.</p>
+    <p>KNEW began as a movement to restore truth in a digital world flooded by noise and distortion. A system where every human signal — emotion, proof, and context — could be trusted again.</p>
+    <p>Now, after years of building, that idea evolved into <strong>KNEW v2</strong> — the verification layer for human reality. A trust infrastructure that verifies media, data, and events at the source, powered by real-world provenance, intelligence, and context.</p>
+    <p>KNEW v2 transforms proof into clarity — making information not just visible, but verifiable.</p>
+    <a class="button" href="https://knew.network" target="_blank">Experience KNEW v2 →</a>
+    <footer>© 2025 KNEW Systems — Concept by Hermann</footer>
   </div>
-
-  <footer>© 2025 KNEW Systems — Concept by Hermann</footer>
 </body>
 </html>

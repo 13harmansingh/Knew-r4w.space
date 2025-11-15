@@ -1,111 +1,67 @@
-// Final cinematic founder-level reveal
-// - 4 lines, sequential reveal with subtle depth
-// - final line glows purple, then white flash + confetti + redirect
-// - any pointerdown/keyboard triggers immediate final
-// - respects prefers-reduced-motion
-(() => {
-  const REDIRECT = 'https://knew.network';
-  const LINES = [
-    document.getElementById('line1'),
-    document.getElementById('line2'),
-    document.getElementById('line3'),
-    document.getElementById('line4')
-  ];
-  const FLASH = document.getElementById('flash');
-  const BUTTERFLY = document.getElementById('butterfly');
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// =============================
+// Page metadata (edit here)
+// =============================
+const PAGE_META = {
+  currentModel: "Cursor Pro (Sonnet 4.5) • Codex 5.1 • Haiku 4.5 • HuggingFace API (fallback models)",
+  lastUpdated: "2025-11-15",
+  nextWork: `1) Move heavy inference to local CPU-hosted models for embeddings & classification.
+2) Implement parallel racing for API fallbacks to reduce latency.
+3) Add publisher-level crawler backoff + robust robots.txt handling.
+4) Start YC pack and investor outreach (deck + one-pager).`
+};
 
-  // timing values (tuned)
-  const STAGGER = prefersReduced ? 300 : 900; // ms between reveals
-  const FINAL_DWELL = prefersReduced ? 300 : 700;
-  const MAX_SAFE = 7000; // safety redirect in case of failure
+// Populate UI
+document.addEventListener('DOMContentLoaded', () => {
+  const cur = document.getElementById('currentModel');
+  const lu = document.getElementById('lastUpdated');
+  const nw = document.getElementById('nextWork');
+  const nextWorkBlock = document.getElementById('nextWorkBlock');
 
-  // show lines with subtle depth offsets
-  function revealSequence() {
-    LINES.forEach((ln) => ln.classList.remove('visible'));
-    LINES.forEach((ln, i) => {
-      setTimeout(() => {
-        // depth: earlier lines appear slightly "farther"
-        const z = -40 + i * 12; // -40, -28, -16, -4
-        ln.style.transform = `translate3d(-50%,-50% , ${z}px)`;
-        ln.classList.add('visible');
-      }, i * STAGGER);
-    });
+  if (cur) cur.textContent = PAGE_META.currentModel;
+  if (lu) lu.textContent = PAGE_META.lastUpdated;
+  if (nw) nw.textContent = PAGE_META.nextWork;
+  if (nextWorkBlock) nextWorkBlock.textContent = PAGE_META.nextWork;
 
-    // schedule final action after last reveal + dwell
-    const total = (LINES.length - 1) * STAGGER + FINAL_DWELL;
-    setTimeout(() => doFinal(), total);
-  }
-
-  // confetti burst (purple + white)
-  function fireConfetti() {
-    if (typeof confetti !== 'function') return;
-    confetti({
-      particleCount: 110,
-      spread: 140,
-      origin: { x: 0.5, y: 0.25 },
-      colors: ['#ffffff', '#6B23DC']
-    });
-    setTimeout(() => confetti({
-      particleCount: 70,
-      spread: 90,
-      origin: { x: 0.5, y: 0.35 },
-      colors: ['#ffffff', '#9B6BFF']
-    }), 160);
-  }
-
-  // final: flash, confetti, redirect
-  let finalRun = false;
-  function doFinal() {
-    if (finalRun) return;
-    finalRun = true;
-
-    // ensure last line visible (if not)
-    const last = LINES[LINES.length - 1];
-    if (last && !last.classList.contains('visible')) {
-      last.classList.add('visible');
-      last.style.transform = 'translate3d(-50%,-50% , 0px)';
-    }
-
-    // small delay (let final glow register)
-    setTimeout(() => {
-      FLASH.style.opacity = '1';
-      try { fireConfetti(); } catch (e) {}
-      setTimeout(() => window.location.href = REDIRECT, 340);
-    }, 420);
-  }
-
-  // any user interaction triggers final immediately
-  function attachInteraction() {
-    const one = (e) => {
-      e.preventDefault();
-      doFinal();
-    };
-    document.addEventListener('pointerdown', one, { once: true, passive: false });
-    document.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        ev.preventDefault();
-        doFinal();
+  // download PDF button
+  const downloadBtn = document.getElementById('downloadPdf');
+  if (downloadBtn){
+    downloadBtn.addEventListener('click', async () => {
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = 'Preparing PDF…';
+      try {
+        await generatePDFSnapshot();
+      } catch (err) {
+        alert('Could not prepare PDF: ' + (err && err.message ? err.message : err));
+      } finally {
+        downloadBtn.disabled = false;
+        downloadBtn.textContent = 'Download PDF';
       }
-    }, { once: true });
+    });
   }
+});
 
-  // safety fallback
-  setTimeout(() => { if (!finalRun) doFinal(); }, MAX_SAFE);
+// Simple client-side PDF generator using print stylesheet trick
+async function generatePDFSnapshot(){
+  // Add a print-friendly wrapper
+  const originalTitle = document.title;
+  document.title = `KNEW - Snapshot ${PAGE_META.lastUpdated}`;
 
-  // init
-  document.addEventListener('DOMContentLoaded', () => {
-    revealSequence();
-    attachInteraction();
-    // subtle butterfly vanish into scene (if present)
-    if (BUTTERFLY && !prefersReduced) {
-      setTimeout(() => {
-        BUTTERFLY.style.transition = 'opacity 520ms ease, transform 600ms ease';
-        BUTTERFLY.style.opacity = '0';
-        BUTTERFLY.style.transform = 'translateY(-18px) scale(0.9)';
-      }, 1400);
-    } else if (BUTTERFLY) {
-      BUTTERFLY.style.opacity = '0.9';
-    }
+  // Open print dialog (user can Save as PDF)
+  window.print();
+
+  // restore
+  document.title = originalTitle;
+  return;
+}
+
+// Optional: copy to clipboard for quick investor notes
+function copyOverviewToClipboard(){
+  const overview = document.querySelector('#overview');
+  if (!overview) return;
+  const text = overview.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Overview copied to clipboard');
+  }).catch(() => {
+    alert('Copy failed');
   });
-})();
+}

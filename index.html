@@ -5,9 +5,128 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KNEW — Updated Project Overview</title>
   <meta name="description" content="KNEW — Knowledge Network of Every Witness. Real-time, location-grounded, AI-powered news intelligence." />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:;base64,=" />
+
+  <!-- INLINE CSS — FULL STYLING -->
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:#5be4b0;
+      --glass: rgba(255,255,255,0.03);
+      --maxwidth:1100px;
+      --radius:12px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", monospace;
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071228 0%, #07121b 60%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    .container{
+      max-width:var(--maxwidth);
+      margin:28px auto;
+      padding:0 20px;
+    }
+
+    .narrow{max-width:880px}
+
+    .site-header{
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      backdrop-filter: blur(6px);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .site-header .container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 20px;
+    }
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.6px}
+    .brand .tag{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    .nav a, .nav button{margin-left:10px}
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      background:linear-gradient(180deg,var(--accent), #47c89a);
+      color:#00221a;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+      border:0;
+      cursor:pointer;
+    }
+    .btn.ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--accent);
+      box-shadow:none;
+    }
+    .btn:active{transform:translateY(1px)}
+
+    .banner{
+      margin:20px auto;
+      padding:20px;
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 6px 24px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .banner .container{padding:0}
+    .banner p{color:var(--muted);margin:8px 0 12px}
+    .banner-actions{display:flex;gap:10px;margin-top:10px}
+
+    .card{
+      margin:20px 0;
+      padding:22px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+    }
+
+    .lede{color:var(--muted);font-size:15px}
+
+    h2{margin:0 0 8px;font-size:20px}
+    h3{margin:18px 0 6px;font-size:16px}
+    ul{margin:10px 0 10px 20px}
+    ol{margin:10px 0 10px 20px}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .full{width:100%}
+
+    .meta{margin-top:6px;padding:18px}
+    .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .meta-grid div{background:var(--glass);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    .meta-grid label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .meta-value{font-weight:600;color:#eaf6f0}
+
+    .next-block{background: linear-gradient(90deg, rgba(91,228,176,0.06), rgba(91,228,176,0.02)); padding:12px;border-radius:8px;border:1px solid rgba(91,228,176,0.07); margin-bottom:12px; color:#c8fff0}
+
+    footer.card{display:block;text-align:left;margin-bottom:48px}
+
+    @media (max-width:880px){
+      .meta-grid{grid-template-columns:1fr; }
+      .site-header .container{padding:12px}
+      .container{margin:12px auto;padding:0 18px}
+    }
+  </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container">
@@ -16,148 +135,118 @@
         <p class="tag">Knowledge Network of Every Witness</p>
       </div>
       <nav class="nav">
-        <a class="btn" href="https://knew.network" target="_blank" rel="noopener">Open Live App</a>
+        <a class="btn" href="https://knew.network" target="_blank">Open Live App</a>
         <button id="downloadPdf" class="btn ghost">Download PDF</button>
       </nav>
     </div>
   </header>
 
-  <!-- Project Update Banner -->
-  <section class="banner" id="update-banner">
+  <section class="banner">
     <div class="container narrow">
       <strong>Project Update (Post-Submission)</strong>
       <span class="muted">Submitted to EIC Accelerator on <em>28/10/2025</em></span>
       <p>
         Since the submission of our EIC proposal, we have made significant progress on the KNEW platform.
-        This page provides an updated overview of the technology, features, and system architecture, and
-        a direct link to the live demo site.
+        This page provides an updated overview of the technology, features, and system architecture.
       </p>
       <div class="banner-actions">
-        <a class="btn" href="#overview">Updated Project Overview</a>
-        <a class="btn ghost" href="https://knew.network" target="_blank" rel="noopener">Launch Live Demo</a>
+        <a class="btn" href="#overview">Updated Overview</a>
+        <a class="btn ghost" href="https://knew.network" target="_blank">Launch Demo</a>
       </div>
     </div>
   </section>
 
+
   <main class="container">
-    <!-- Meta editor (easy to update) -->
-    <section class="meta" id="meta-editor">
+
+    <section class="meta">
       <h2>Snapshot</h2>
-      <p class="muted">Edit these lines in <code>script.js</code> to update the page everywhere instantly.</p>
+      <p class="muted">Edit this inside the script manually.</p>
 
       <div class="meta-grid">
-        <div>
-          <label>Current Tooling / Model</label>
-          <div id="currentModel" class="meta-value"></div>
-        </div>
-        <div>
-          <label>Last Updated</label>
-          <div id="lastUpdated" class="meta-value"></div>
-        </div>
-        <div class="full">
-          <label>Working on next</label>
-          <div id="nextWork" class="meta-value"></div>
-        </div>
+        <div><label>Current Tooling / Model</label><div id="currentModel" class="meta-value"></div></div>
+        <div><label>Last Updated</label><div id="lastUpdated" class="meta-value"></div></div>
+        <div class="full"><label>Working on next</label><div id="nextWork" class="meta-value"></div></div>
       </div>
-      <div class="muted small">Tip: keep this updated to show reviewers what you're actively building next.</div>
     </section>
 
-    <!-- Full Overview -->
+
     <section id="overview" class="card">
       <h2>Updated Overview of KNEW</h2>
       <p class="lede">Knowledge Network of Every Witness — a real-time, location-grounded, AI-powered news intelligence network.</p>
 
       <h3>1. What KNEW Is</h3>
-      <p>
-        KNEW is a next-generation global news intelligence system designed to <strong>restore trust, context, and clarity</strong> in information consumption.
-        It operates as a real-time, map-driven interface where users can explore news by <strong>location</strong>, understand multiple perspectives, detect bias,
-        and receive AI-validated summaries of events happening anywhere in the world.
-      </p>
+      <p>KNEW is a next-generation global news intelligence system designed to restore trust, context, and clarity.</p>
 
       <h3>2. The Problem We Solve</h3>
       <ul>
-        <li>Information overload and fragmented sources</li>
-        <li>Low transparency and undisclosed media ownership</li>
-        <li>Ideological and regional bias that distorts situational awareness</li>
-        <li>Limited tools to verify and compare perspectives across borders</li>
+        <li>Information overload</li>
+        <li>Media ownership opacity</li>
+        <li>Bias amplification</li>
       </ul>
 
       <h3>3. The KNEW Insight</h3>
-      <p>
-        News is geography. Stories are rooted in locations, then amplified through networks of publishers and social channels.
-        By grounding journalism in coordinates and applying multi-layer AI analysis, KNEW creates a <strong>real-time global information map</strong>.
-      </p>
+      <p>News is geography — events happen in places, then spread through networks.</p>
 
-      <h3>4. What’s New Since Submission (28/10/2025)</h3>
+      <h3>4. What’s New Since Submission</h3>
       <ul>
-        <li><strong>Hybrid News Ingestion:</strong> 4-tier API fallback + RSS ingestion + legal HTML fallback scrapers + publisher crawlers</li>
-        <li><strong>Hybrid AI Engine:</strong> 8-processor pipeline (content extraction, bias, sentiment, fact-checking, ownership, credibility, community, aggregator) with LLM + HF + local fallbacks</li>
-        <li><strong>Architecture:</strong> Redis TTL fulltext, distributed quota locks, WebSocket job updates, unified document model</li>
-        <li><strong>Frontend UX:</strong> live fetch on article open, improved map UI, real-time bias badges, clearer filters</li>
+        <li>Hybrid ingestion: API + RSS + scrapers</li>
+        <li>Hybrid AI engine: 8 processors</li>
+        <li>Redis TTL caching</li>
+        <li>Live fetch on article open</li>
       </ul>
 
-      <h3>5. How KNEW Works (Short)</h3>
+      <h3>5. How KNEW Works</h3>
       <ol>
-        <li><strong>Ingest:</strong> APIs, RSS, scrapers normalize articles into a single document model; dedupe by embeddings + hashes.</li>
-        <li><strong>Process:</strong> Each article runs through 8 processors in parallel; results are aggregated into a trust score.</li>
-        <li><strong>Map:</strong> Articles are geocoded and presented on an interactive world map by location and category.</li>
-        <li><strong>Explore:</strong> Users launch articles, get AI summaries, compare sources, bookmark and track events across time.</li>
+        <li>Ingest → normalize</li>
+        <li>Process → 8 AI processors</li>
+        <li>Map → geocode stories</li>
+        <li>Explore → multi-perspective reading</li>
       </ol>
 
       <h3>6. Why This Matters</h3>
-      <p>
-        KNEW reduces bias exposure, improves cross-border situational awareness, and provides transparent, explainable trust scores.
-        Target users include journalists, NGOs, analysts, governments, and informed citizens.
-      </p>
+      <p>KNEW improves cross-border situational awareness with transparent meta layers.</p>
 
       <h3>7. Live Demo</h3>
-      <p>
-        Try the live demo: <a href="https://knew.network" target="_blank" rel="noopener">https://knew.network</a>
-      </p>
-
-      <h3>8. Development Timeline (Since 28/10/2025)</h3>
-      <ul>
-        <li>Weeks 1–2: Architecture & processor improvements; UI refresh</li>
-        <li>Weeks 3–4: RSS module & scraping fallback; live fetch</li>
-        <li>Weeks 5–7: Distributed quota control, caching, performance optimizations</li>
-        <li>Weeks 8–10: Demo polish, documentation, EIC update integration</li>
-      </ul>
-
-      <h3>9. Legal & Operational Notes</h3>
-      <ul>
-        <li>Scraping respects <code>robots.txt</code> and publisher TOS by default</li>
-        <li>Full-text content is stored only temporarily (TTL in Redis)</li>
-        <li>Summaries and AI outputs may be persistently stored as metadata (not raw HTML)</li>
-      </ul>
-
-      <h3>10. Call to Action</h3>
-      <p>
-        For evaluators and partners: If you want to run a short demo, or get a private walkthrough, contact <a href="mailto:hello@knew.network">hello@knew.network</a>.
-        We can provide short credentials for controlled access to the staging environment.
-      </p>
+      <p><a href="https://knew.network" target="_blank">https://knew.network</a></p>
     </section>
 
-    <!-- Next Work -->
+
     <section id="next" class="card">
       <h2>What I’m Working On Next</h2>
       <div id="nextWorkBlock" class="next-block"></div>
 
-      <h4>Short roadmap items (editable)</h4>
       <ol>
-        <li>Move heavy inference to local CPU-hosted models for cheap classification and embeddings.</li>
-        <li>Introduce parallel racing for API fallbacks to reduce latency.</li>
-        <li>Implement per-domain crawler backoff and robust robots.txt handling.</li>
-        <li>Start YC pack + investor-ready deck & one-pager.</li>
+        <li>Local CPU inference</li>
+        <li>Parallel API fallbacks</li>
+        <li>Crawler backoff</li>
+        <li>YC deck + app</li>
       </ol>
     </section>
 
-    <footer class="card small muted">
+    <footer class="card muted small">
       <strong>Notes</strong>
-      <p>KNEW — Knowledge Network of Every Witness · Live demo: <a href="https://knew.network" target="_blank" rel="noopener">knew.network</a></p>
-      <p>To update the “Current Tooling / Model” or “What I’m working on next”, edit <code>script.js</code> at the top where the page metadata is defined.</p>
+      <p>KNEW — Knowledge Network of Every Witness · Live demo: knew.network</p>
     </footer>
   </main>
 
-  <script src="script.js"></script>
+  <!-- INLINE JS -->
+  <script>
+    const PAGE_META = {
+      currentModel: "Cursor Pro (Sonnet 4.5) • Codex 5.1 • Haiku 4.5",
+      lastUpdated: "2025-11-15",
+      nextWork: "Scaling ingestion · local inference · global scrapers · YC pack"
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentModel").textContent = PAGE_META.currentModel;
+      document.getElementById("lastUpdated").textContent = PAGE_META.lastUpdated;
+      document.getElementById("nextWork").textContent = PAGE_META.nextWork;
+      document.getElementById("nextWorkBlock").textContent = PAGE_META.nextWork;
+
+      document.getElementById("downloadPdf").onclick = () => window.print();
+    });
+  </script>
+
 </body>
 </html>

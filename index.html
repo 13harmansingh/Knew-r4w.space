@@ -1,173 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KNEW v2 — The Verification Layer for Human Reality</title>
-  <style>
-    :root {
-      --accent: #6b23dc;
-      --text-dark: #111;
-      --text-light: #444;
-      --bg: #f7f7f7;
-      --glass: rgba(255, 255, 255, 0.7); /* Slightly less opaque glass */
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      width: 100%;
-      /* Switched to Inter for a more modern, clean font, though Helvetica is also good */
-      font-family: "Inter", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-dark);
-      background: var(--bg);
-      overflow-y: auto; /* Allow scrolling if content expands */
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
-      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,245,245,0.8));
-      padding: 3rem 0; /* Add padding for mobile view safety */
-    }
-
-    .container {
-      max-width: 720px; /* Reduced from 900px for optimal line length and focus */
-      padding: 4.5rem 2.5rem; /* Increased vertical padding */
-      background: var(--glass);
-      border-radius: 28px; /* Slightly larger border-radius */
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
-      animation: fadeIn 2s ease-out forwards;
-      transform: translateY(20px);
-      opacity: 0;
-      margin: auto; /* Center vertically if body is full height */
-    }
-
-    @keyframes fadeIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* INLINE LOGO STYLE */
-    .logo-inline {
-      width: 44px; /* Slightly smaller and more subtle */
-      height: 44px;
-      margin-bottom: 1rem; /* Clear space above h1 */
-      opacity: 0.9;
-    }
-
-    h1 {
-      font-weight: 100;
-      font-size: clamp(2.5rem, 6vw, 4.5rem); /* Slightly more contained size */
-      letter-spacing: -0.03em; /* Tighter letter spacing */
-      margin-bottom: 0.5rem; /* Reduced space below h1 */
-      background: linear-gradient(90deg, #000, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 {
-      font-weight: 300;
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      color: var(--text-light);
-      margin-top: 0.5rem;
-      margin-bottom: 3rem; /* Increased space for visual separation */
-    }
-
-    p {
-      font-size: clamp(1rem, 1.6vw, 1.15rem); /* Slightly tighter text size */
-      line-height: 1.75; /* Increased line-height for better readability (a premium touch) */
-      color: var(--text-light);
-      margin-bottom: 1.8rem; /* Consistent vertical rhythm */
-    }
-
-    .accent-line {
-      width: 50px; /* Shorter and more refined */
-      height: 1.5px; /* Thinner */
-      background: var(--accent);
-      margin: 3rem auto; /* Increased vertical margin for clean separation */
-      opacity: 0.6;
-    }
-
-    footer {
-      margin-top: 3.5rem; /* Increased margin */
-      font-size: 0.8rem;
-      color: #777;
-      letter-spacing: 0.08em; /* Slightly more space for a clean footer */
-    }
-
-    .button {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 1.1rem 3rem; /* Larger padding for a more prominent CTA */
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      margin-top: 3rem; /* More space above the button */
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 25px rgba(107, 35, 220, 0.35); /* Subtle shadow adjustment */
-    }
-
-    .button:hover {
-      background: #5a1dc0;
-      transform: translateY(-2px) scale(1.01); /* Subtle lift and scale on hover */
-      box-shadow: 0 8px 30px rgba(107, 35, 220, 0.45);
-    }
-
-    /* REMOVED LOGO FLOATING STYLES */
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 3rem 1.5rem;
-        margin: 2rem 1rem; /* Add side margin on small screens */
-      }
-      h1 {
-        font-size: 3rem;
-      }
-      h2 {
-        margin-bottom: 2rem;
-      }
-      .button {
-        padding: 1rem 2.5rem;
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KNEW — Updated Project Overview</title>
+  <meta name="description" content="KNEW — Knowledge Network of Every Witness. Real-time, location-grounded, AI-powered news intelligence." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:;base64,=" />
 </head>
 <body>
-  <div class="container">
-    <img class="logo-inline" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Butterfly_icon.svg" alt="KNEW logo" />
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <h1>KNEW</h1>
+        <p class="tag">Knowledge Network of Every Witness</p>
+      </div>
+      <nav class="nav">
+        <a class="btn" href="https://knew.network" target="_blank" rel="noopener">Open Live App</a>
+        <button id="downloadPdf" class="btn ghost">Download PDF</button>
+      </nav>
+    </div>
+  </header>
 
-    <h1>KNEW</h1>
-    <h2>The Future of Verified Reality</h2>
-    
-    <div class="accent-line"></div>
-    
-    <p>We stopped believing what we see. But reality never stopped existing — it just needed a system.</p>
-    
-    <p>KNEW began as a movement to restore truth in a digital world flooded by noise and distortion. A system where every human signal — emotion, proof, and context — could be trusted again.</p>
-    
-    <p>Now, after years of building, that idea evolved into <strong>KNEW v2</strong> — the verification layer for human reality. A trust infrastructure that verifies media, data, and events at the source, powered by real-world provenance, intelligence, and context.</p>
-    
-    <p>KNEW v2 transforms proof into clarity — making information not just visible, but verifiable.</p>
-    
-    <a class="button" href="https://knew.network" target="_blank">Experience KNEW v2 →</a>
-    
-    <footer>© 2025 KNEW Systems — Concept by Hermann</footer>
-  </div>
+  <!-- Project Update Banner -->
+  <section class="banner" id="update-banner">
+    <div class="container narrow">
+      <strong>Project Update (Post-Submission)</strong>
+      <span class="muted">Submitted to EIC Accelerator on <em>28/10/2025</em></span>
+      <p>
+        Since the submission of our EIC proposal, we have made significant progress on the KNEW platform.
+        This page provides an updated overview of the technology, features, and system architecture, and
+        a direct link to the live demo site.
+      </p>
+      <div class="banner-actions">
+        <a class="btn" href="#overview">Updated Project Overview</a>
+        <a class="btn ghost" href="https://knew.network" target="_blank" rel="noopener">Launch Live Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Meta editor (easy to update) -->
+    <section class="meta" id="meta-editor">
+      <h2>Snapshot</h2>
+      <p class="muted">Edit these lines in <code>script.js</code> to update the page everywhere instantly.</p>
+
+      <div class="meta-grid">
+        <div>
+          <label>Current Tooling / Model</label>
+          <div id="currentModel" class="meta-value"></div>
+        </div>
+        <div>
+          <label>Last Updated</label>
+          <div id="lastUpdated" class="meta-value"></div>
+        </div>
+        <div class="full">
+          <label>Working on next</label>
+          <div id="nextWork" class="meta-value"></div>
+        </div>
+      </div>
+      <div class="muted small">Tip: keep this updated to show reviewers what you're actively building next.</div>
+    </section>
+
+    <!-- Full Overview -->
+    <section id="overview" class="card">
+      <h2>Updated Overview of KNEW</h2>
+      <p class="lede">Knowledge Network of Every Witness — a real-time, location-grounded, AI-powered news intelligence network.</p>
+
+      <h3>1. What KNEW Is</h3>
+      <p>
+        KNEW is a next-generation global news intelligence system designed to <strong>restore trust, context, and clarity</strong> in information consumption.
+        It operates as a real-time, map-driven interface where users can explore news by <strong>location</strong>, understand multiple perspectives, detect bias,
+        and receive AI-validated summaries of events happening anywhere in the world.
+      </p>
+
+      <h3>2. The Problem We Solve</h3>
+      <ul>
+        <li>Information overload and fragmented sources</li>
+        <li>Low transparency and undisclosed media ownership</li>
+        <li>Ideological and regional bias that distorts situational awareness</li>
+        <li>Limited tools to verify and compare perspectives across borders</li>
+      </ul>
+
+      <h3>3. The KNEW Insight</h3>
+      <p>
+        News is geography. Stories are rooted in locations, then amplified through networks of publishers and social channels.
+        By grounding journalism in coordinates and applying multi-layer AI analysis, KNEW creates a <strong>real-time global information map</strong>.
+      </p>
+
+      <h3>4. What’s New Since Submission (28/10/2025)</h3>
+      <ul>
+        <li><strong>Hybrid News Ingestion:</strong> 4-tier API fallback + RSS ingestion + legal HTML fallback scrapers + publisher crawlers</li>
+        <li><strong>Hybrid AI Engine:</strong> 8-processor pipeline (content extraction, bias, sentiment, fact-checking, ownership, credibility, community, aggregator) with LLM + HF + local fallbacks</li>
+        <li><strong>Architecture:</strong> Redis TTL fulltext, distributed quota locks, WebSocket job updates, unified document model</li>
+        <li><strong>Frontend UX:</strong> live fetch on article open, improved map UI, real-time bias badges, clearer filters</li>
+      </ul>
+
+      <h3>5. How KNEW Works (Short)</h3>
+      <ol>
+        <li><strong>Ingest:</strong> APIs, RSS, scrapers normalize articles into a single document model; dedupe by embeddings + hashes.</li>
+        <li><strong>Process:</strong> Each article runs through 8 processors in parallel; results are aggregated into a trust score.</li>
+        <li><strong>Map:</strong> Articles are geocoded and presented on an interactive world map by location and category.</li>
+        <li><strong>Explore:</strong> Users launch articles, get AI summaries, compare sources, bookmark and track events across time.</li>
+      </ol>
+
+      <h3>6. Why This Matters</h3>
+      <p>
+        KNEW reduces bias exposure, improves cross-border situational awareness, and provides transparent, explainable trust scores.
+        Target users include journalists, NGOs, analysts, governments, and informed citizens.
+      </p>
+
+      <h3>7. Live Demo</h3>
+      <p>
+        Try the live demo: <a href="https://knew.network" target="_blank" rel="noopener">https://knew.network</a>
+      </p>
+
+      <h3>8. Development Timeline (Since 28/10/2025)</h3>
+      <ul>
+        <li>Weeks 1–2: Architecture & processor improvements; UI refresh</li>
+        <li>Weeks 3–4: RSS module & scraping fallback; live fetch</li>
+        <li>Weeks 5–7: Distributed quota control, caching, performance optimizations</li>
+        <li>Weeks 8–10: Demo polish, documentation, EIC update integration</li>
+      </ul>
+
+      <h3>9. Legal & Operational Notes</h3>
+      <ul>
+        <li>Scraping respects <code>robots.txt</code> and publisher TOS by default</li>
+        <li>Full-text content is stored only temporarily (TTL in Redis)</li>
+        <li>Summaries and AI outputs may be persistently stored as metadata (not raw HTML)</li>
+      </ul>
+
+      <h3>10. Call to Action</h3>
+      <p>
+        For evaluators and partners: If you want to run a short demo, or get a private walkthrough, contact <a href="mailto:hello@knew.network">hello@knew.network</a>.
+        We can provide short credentials for controlled access to the staging environment.
+      </p>
+    </section>
+
+    <!-- Next Work -->
+    <section id="next" class="card">
+      <h2>What I’m Working On Next</h2>
+      <div id="nextWorkBlock" class="next-block"></div>
+
+      <h4>Short roadmap items (editable)</h4>
+      <ol>
+        <li>Move heavy inference to local CPU-hosted models for cheap classification and embeddings.</li>
+        <li>Introduce parallel racing for API fallbacks to reduce latency.</li>
+        <li>Implement per-domain crawler backoff and robust robots.txt handling.</li>
+        <li>Start YC pack + investor-ready deck & one-pager.</li>
+      </ol>
+    </section>
+
+    <footer class="card small muted">
+      <strong>Notes</strong>
+      <p>KNEW — Knowledge Network of Every Witness · Live demo: <a href="https://knew.network" target="_blank" rel="noopener">knew.network</a></p>
+      <p>To update the “Current Tooling / Model” or “What I’m working on next”, edit <code>script.js</code> at the top where the page metadata is defined.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

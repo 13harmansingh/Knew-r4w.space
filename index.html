@@ -7,14 +7,14 @@
 
 <style>
 /* =====================================================
-   SYSTEM
+   CORE SYSTEM
 ===================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0b0f14;
+  --bg: #0a0d12;
   --panel: #0f172a;
-  --panel-soft: #111827;
+  --panel-elevated: #111827;
   --border: #1f2937;
 
   --text: #e5e7eb;
@@ -24,347 +24,304 @@
   --accent: #3b82f6;
   --accent-dim: #1e40af;
 
-  --warn: #f59e0b;
+  --shadow-lg: 0 40px 80px rgba(0,0,0,.45);
+  --shadow-md: 0 20px 40px rgba(0,0,0,.35);
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
+  background: radial-gradient(1200px 600px at 50% -200px, #111827, var(--bg));
   color: var(--text);
   line-height: 1.65;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
 /* =====================================================
-   NAV
+   VIEWPORT SECTIONS
 ===================================================== */
-nav {
-  border-bottom: 1px solid var(--border);
-  background: rgba(11,15,20,.85);
-  backdrop-filter: blur(10px);
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem 1.5rem;
+.viewport {
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-.logo {
-  letter-spacing: .22em;
-  font-size: .8rem;
-}
-
-.nav-meta {
-  font-size: .7rem;
-  color: var(--text-soft);
+  justify-content: center;
+  padding: 2rem;
 }
 
 /* =====================================================
-   HERO
+   DECLARATION
 ===================================================== */
-.hero {
-  padding: 3.5rem 1.5rem 2.5rem;
+.declaration {
   max-width: 900px;
-  margin: 0 auto;
+  text-align: center;
 }
 
-.hero h1 {
-  font-size: 2.2rem;
+.declaration h1 {
+  font-size: 3rem;
   font-weight: 300;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.hero p {
+.declaration p {
+  font-size: 1.1rem;
   color: var(--text-muted);
-  max-width: 700px;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
 }
 
-/* =====================================================
-   STORY GRID
-===================================================== */
-.section {
-  padding: 2.5rem 1.5rem 4rem;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.8rem;
+.declaration-meta {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  font-size: .8rem;
+  color: var(--text-soft);
 }
 
 /* =====================================================
    STORY CARD
 ===================================================== */
-.story {
-  background: linear-gradient(180deg, var(--panel), var(--panel-soft));
+.story-card {
+  max-width: 900px;
+  width: 100%;
+  background: linear-gradient(180deg, var(--panel), var(--panel-elevated));
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 1.8rem;
+  border-radius: 24px;
+  padding: 2.8rem;
+  box-shadow: var(--shadow-md);
+  transition: all .5s ease;
+}
+
+.story-card.expanded {
+  height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
 }
 
 .story-header {
   display: flex;
   justify-content: space-between;
-  font-size: .7rem;
+  font-size: .75rem;
   color: var(--text-soft);
-  margin-bottom: 1rem;
-}
-
-.status {
-  color: var(--warn);
+  margin-bottom: 1.2rem;
 }
 
 .story-title {
-  font-size: 1.3rem;
-  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 .block {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.8rem;
 }
 
 .label {
-  font-size: .6rem;
-  letter-spacing: .16em;
+  font-size: .65rem;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--text-soft);
-  margin-bottom: .35rem;
+  margin-bottom: .4rem;
 }
 
 .block p {
   color: var(--text-muted);
-  font-size: .9rem;
 }
 
 /* =====================================================
-   DIFF / UNCERTAINTY
-===================================================== */
-.diff {
-  border-left: 2px solid var(--accent);
-  padding-left: .8rem;
-  margin: 1.2rem 0;
-  font-size: .85rem;
-  color: var(--text-muted);
-}
-
-.uncertainty {
-  background: rgba(245,158,11,.1);
-  border: 1px dashed rgba(245,158,11,.3);
-  border-radius: 8px;
-  padding: .7rem;
-  font-size: .8rem;
-  color: var(--warn);
-}
-
-/* =====================================================
-   DEPTH TOGGLES
+   DEPTH
 ===================================================== */
 .controls {
   display: flex;
-  gap: .6rem;
-  margin-top: 1.2rem;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
 }
 
 .control {
   flex: 1;
+  padding: .7rem;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
-  padding: .6rem;
-  border-radius: 8px;
-  font-size: .75rem;
+  font-size: .8rem;
 }
 
 .control.active {
-  background: var(--accent);
-  color: #fff;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dim));
   border-color: var(--accent);
+  color: #fff;
 }
 
-/* =====================================================
-   EXPAND SECTIONS
-===================================================== */
-.expand {
+.full {
   display: none;
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
   border-top: 1px solid var(--border);
-}
-
-.sources {
-  font-size: .8rem;
-  color: var(--text-muted);
-}
-
-.sources span {
-  display: block;
-  margin-bottom: .3rem;
+  padding-top: 1.5rem;
 }
 
 /* =====================================================
    FOOTER
 ===================================================== */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 2.5rem 1.5rem;
+.footer {
   text-align: center;
-  font-size: .7rem;
-  color: var(--text-soft);
+}
+
+.footer h2 {
+  font-size: 2.2rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.footer p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+input {
+  padding: .8rem;
+  border-radius: 8px;
+  border: none;
+  width: 260px;
+  margin-right: .5rem;
+}
+
+button.signup {
+  padding: .8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="nav-container">
-    <div class="logo">KNEW</div>
-    <div class="nav-meta">6 stories · Updated 16:54 UTC</div>
-  </div>
-</nav>
-
-<section class="hero">
-  <h1>Orientation for the present</h1>
-  <p>
-    Finite stories explaining what is happening, why it matters,
-    what has changed, and what remains uncertain.
-  </p>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="grid">
-
-      <!-- STORY -->
-      <div class="story">
-        <div class="story-header">
-          <span>Red Sea · Trade</span>
-          <span class="status">Developing</span>
-        </div>
-
-        <div class="story-title">
-          Red Sea shipping routes disrupted
-        </div>
-
-        <div class="block">
-          <div class="label">What is happening</div>
-          <p>
-            Several major shipping firms have reduced Red Sea transit
-            following repeated security incidents involving cargo vessels.
-          </p>
-        </div>
-
-        <div class="block">
-          <div class="label">Why this matters</div>
-          <p>
-            The route handles ~12% of global trade. Rerouting adds cost,
-            delays goods, and introduces systemic uncertainty.
-          </p>
-        </div>
-
-        <div class="diff">
-          <strong>What changed:</strong> Two additional carriers announced
-          temporary suspension since your last visit.
-        </div>
-
-        <div class="uncertainty">
-          Some incident reports remain unverified. Attribution is disputed.
-        </div>
-
-        <div class="controls">
-          <button class="control" onclick="toggle(this)">More context</button>
-          <button class="control" onclick="toggle(this)">Full coverage</button>
-        </div>
-
-        <div class="expand">
-          <p>
-            The Red Sea connects Europe and Asia via the Suez Canal.
-            Ships are rerouting around southern Africa, adding 7–12 days.
-          </p>
-
-          <div class="sources">
-            <span>European media: focus on supply chain impact</span>
-            <span>Regional media: emphasis on security escalation</span>
-            <span>US media: insurance and naval response</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- STORY 2 -->
-      <div class="story">
-        <div class="story-header">
-          <span>EU · Technology</span>
-          <span class="status">Stable</span>
-        </div>
-
-        <div class="story-title">
-          EU AI Act enters implementation phase
-        </div>
-
-        <div class="block">
-          <div class="label">What is happening</div>
-          <p>
-            EU member states begin enforcing AI transparency
-            and risk classification requirements.
-          </p>
-        </div>
-
-        <div class="block">
-          <div class="label">Why this matters</div>
-          <p>
-            The framework sets a global precedent affecting
-            AI deployment beyond Europe.
-          </p>
-        </div>
-
-        <div class="diff">
-          <strong>What changed:</strong> Final compliance timelines clarified.
-        </div>
-
-        <div class="controls">
-          <button class="control" onclick="toggle(this)">More context</button>
-          <button class="control" onclick="toggle(this)">Full coverage</button>
-        </div>
-
-        <div class="expand">
-          <p>
-            High-risk systems will require documentation,
-            audit trails, and human oversight.
-          </p>
-
-          <div class="sources">
-            <span>EU press: consumer protection framing</span>
-            <span>US press: competitiveness concerns</span>
-          </div>
-        </div>
-      </div>
-
+<!-- VIEWPORT 1 -->
+<section class="viewport">
+  <div class="declaration">
+    <h1>knew is orientation.</h1>
+    <p>
+      knew explains what is happening in the world right now,
+      why it matters, what has changed, and what remains uncertain.
+      There are no feeds, alerts, or infinite scroll.
+    </p>
+    <div class="declaration-meta">
+      <div>Finite stories</div>
+      <div>Explicit structure</div>
+      <div>Verifiable sources</div>
     </div>
   </div>
 </section>
 
-<footer>
-  © 2025 knew. You are up to date.
-</footer>
+<!-- VIEWPORT 2 -->
+<section class="viewport">
+  <div class="story-card" onclick="expand(this)">
+    <div class="story-header">
+      <span>Red Sea · Global trade</span>
+      <span>Developing</span>
+    </div>
+
+    <div class="story-title">
+      Red Sea shipping routes disrupted
+    </div>
+
+    <div class="block">
+      <div class="label">What is happening</div>
+      <p>
+        Multiple shipping firms have suspended Red Sea transit
+        following repeated attacks near the Bab el-Mandeb strait.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="label">Why this matters</div>
+      <p>
+        The route carries ~12% of global trade. Rerouting raises costs,
+        delays goods, and increases insurance premiums.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="control active">Overview</button>
+      <button class="control" onclick="showFull(event)">Full coverage</button>
+    </div>
+
+    <div class="full">
+      <p>
+        Reporting from Reuters, the BBC, and the Financial Times indicates
+        insurers have raised war-risk premiums sharply. Several navies have
+        increased patrols, but attribution for recent incidents remains
+        disputed.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VIEWPORT 3 -->
+<section class="viewport">
+  <div class="story-card" onclick="expand(this)">
+    <div class="story-header">
+      <span>EU · Technology</span>
+      <span>Stable</span>
+    </div>
+
+    <div class="story-title">
+      EU AI Act enters enforcement phase
+    </div>
+
+    <div class="block">
+      <div class="label">What is happening</div>
+      <p>
+        EU member states have begun enforcing AI transparency
+        and risk classification requirements.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="label">Why this matters</div>
+      <p>
+        The act sets a global precedent likely to influence
+        AI governance beyond Europe.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="control active">Overview</button>
+      <button class="control" onclick="showFull(event)">Full coverage</button>
+    </div>
+
+    <div class="full">
+      <p>
+        According to the European Commission, systems classified
+        as high-risk must now meet documentation and oversight
+        standards. Coverage from AP and the FT highlights concerns
+        from U.S. firms about regulatory fragmentation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VIEWPORT 4 -->
+<section class="viewport">
+  <div class="footer">
+    <h2>You are up to date.</h2>
+    <p>
+      knew updates twice daily. No alerts will be sent.
+    </p>
+    <input type="email" placeholder="Email address" />
+    <button class="signup">Request access</button>
+  </div>
+</section>
 
 <script>
-function toggle(btn) {
-  const story = btn.closest(".story");
-  const expand = story.querySelector(".expand");
-  const controls = story.querySelectorAll(".control");
+function expand(card) {
+  card.classList.toggle("expanded");
+}
 
-  controls.forEach(c => c.classList.remove("active"));
-  btn.classList.add("active");
-
-  expand.style.display = "block";
+function showFull(e) {
+  e.stopPropagation();
+  const card = e.target.closest(".story-card");
+  card.querySelector(".full").style.display = "block";
 }
 </script>
 

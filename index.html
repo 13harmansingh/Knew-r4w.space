@@ -12,9 +12,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0a0d12;
+  --bg: #0b0f14;
   --panel: #0f172a;
-  --panel-elevated: #111827;
+  --panel-soft: #111827;
   --border: #1f2937;
 
   --text: #e5e7eb;
@@ -22,15 +22,14 @@
   --text-soft: #6b7280;
 
   --accent: #3b82f6;
-  --accent-soft: #1e40af;
+  --accent-dim: #1e40af;
 
-  --success: #22c55e;
-  --warning: #f59e0b;
+  --warn: #f59e0b;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(1200px 600px at 50% -200px, #111827, var(--bg));
+  background: var(--bg);
   color: var(--text);
   line-height: 1.65;
 }
@@ -39,30 +38,27 @@ body {
    NAV
 ===================================================== */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(10,13,18,0.75);
-  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  background: rgba(11,15,20,.85);
+  backdrop-filter: blur(10px);
 }
 
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  letter-spacing: 0.22em;
-  font-size: 0.8rem;
+  letter-spacing: .22em;
+  font-size: .8rem;
 }
 
 .nav-meta {
-  font-size: 0.7rem;
+  font-size: .7rem;
   color: var(--text-soft);
 }
 
@@ -70,214 +66,147 @@ nav {
    HERO
 ===================================================== */
 .hero {
+  padding: 3.5rem 1.5rem 2.5rem;
   max-width: 900px;
   margin: 0 auto;
-  padding: 6rem 2rem 5rem;
-  text-align: center;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 300;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .hero p {
   color: var(--text-muted);
-  max-width: 680px;
-  margin: 0 auto 3rem;
-}
-
-.hero-metrics {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  font-size: 0.8rem;
-  color: var(--text-soft);
+  max-width: 700px;
 }
 
 /* =====================================================
    STORY GRID
 ===================================================== */
 .section {
-  padding: 4rem 2rem;
+  padding: 2.5rem 1.5rem 4rem;
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.story-card {
+.grid {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 2.5rem;
-  background: linear-gradient(180deg, var(--panel), var(--panel-elevated));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.8rem;
+}
+
+/* =====================================================
+   STORY CARD
+===================================================== */
+.story {
+  background: linear-gradient(180deg, var(--panel), var(--panel-soft));
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  transition: transform .35s ease, box-shadow .35s ease;
+  border-radius: 18px;
+  padding: 1.8rem;
 }
 
-.story-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,.35);
-}
-
-/* =====================================================
-   STORY IMAGE
-===================================================== */
-.story-media {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.story-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .6s ease;
-}
-
-.story-media:hover img {
-  transform: scale(1.05);
-}
-
-.media-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-}
-
-/* =====================================================
-   STORY CONTENT
-===================================================== */
 .story-header {
   display: flex;
   justify-content: space-between;
-  font-size: 0.7rem;
+  font-size: .7rem;
   color: var(--text-soft);
   margin-bottom: 1rem;
 }
 
 .status {
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(245,158,11,0.15);
-  color: var(--warning);
+  color: var(--warn);
 }
 
 .story-title {
-  font-size: 1.7rem;
-  margin-bottom: 1.8rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
 }
 
 .block {
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.2rem;
 }
 
 .label {
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
+  font-size: .6rem;
+  letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--text-soft);
-  margin-bottom: 0.4rem;
+  margin-bottom: .35rem;
 }
 
 .block p {
   color: var(--text-muted);
+  font-size: .9rem;
 }
 
 /* =====================================================
-   DEPTH CONTROLS
+   DIFF / UNCERTAINTY
 ===================================================== */
-.depth {
-  border-top: 1px solid var(--border);
-  padding-top: 1.5rem;
-}
-
-.depth-note {
-  font-size: 0.75rem;
-  color: var(--text-soft);
-  margin-bottom: 0.6rem;
-}
-
-.depth-controls {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.depth-btn {
-  flex: 1;
-  background: transparent;
-  border: 1px solid var(--border);
+.diff {
+  border-left: 2px solid var(--accent);
+  padding-left: .8rem;
+  margin: 1.2rem 0;
+  font-size: .85rem;
   color: var(--text-muted);
-  padding: 0.65rem;
+}
+
+.uncertainty {
+  background: rgba(245,158,11,.1);
+  border: 1px dashed rgba(245,158,11,.3);
   border-radius: 8px;
-  cursor: pointer;
-  transition: all .25s ease;
-}
-
-.depth-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.depth-btn.active {
-  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
-  border-color: var(--accent);
-  color: #fff;
+  padding: .7rem;
+  font-size: .8rem;
+  color: var(--warn);
 }
 
 /* =====================================================
-   MODAL
+   DEPTH TOGGLES
 ===================================================== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  backdrop-filter: blur(6px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
+.controls {
+  display: flex;
+  gap: .6rem;
+  margin-top: 1.2rem;
 }
 
-.modal {
-  background: var(--panel);
+.control {
+  flex: 1;
   border: 1px solid var(--border);
-  border-radius: 24px;
-  max-width: 820px;
-  width: 92%;
-  padding: 3rem;
-  animation: modalIn .4s ease;
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(.98); }
-  to { opacity: 1; transform: none; }
-}
-
-.modal h3 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.modal p {
+  background: transparent;
   color: var(--text-muted);
-  margin-bottom: 1rem;
+  padding: .6rem;
+  border-radius: 8px;
+  font-size: .75rem;
 }
 
-.modal-close {
-  margin-top: 2rem;
-  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
+.control.active {
+  background: var(--accent);
   color: #fff;
-  border: none;
-  padding: 0.7rem 1.8rem;
-  border-radius: 10px;
-  cursor: pointer;
+  border-color: var(--accent);
+}
+
+/* =====================================================
+   EXPAND SECTIONS
+===================================================== */
+.expand {
+  display: none;
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.sources {
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+
+.sources span {
+  display: block;
+  margin-bottom: .3rem;
 }
 
 /* =====================================================
@@ -285,19 +214,10 @@ nav {
 ===================================================== */
 footer {
   border-top: 1px solid var(--border);
-  padding: 3rem 2rem;
+  padding: 2.5rem 1.5rem;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: .7rem;
   color: var(--text-soft);
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-@media (max-width: 900px) {
-  .story-card {
-    grid-template-columns: 1fr;
-  }
 }
 </style>
 </head>
@@ -314,30 +234,19 @@ footer {
 <section class="hero">
   <h1>Orientation for the present</h1>
   <p>
-    knew explains what is happening in the world right now,
-    why it matters, and what remains uncertain — without feeds,
-    alerts, or emotional manipulation.
+    Finite stories explaining what is happening, why it matters,
+    what has changed, and what remains uncertain.
   </p>
-  <div class="hero-metrics">
-    <div>Finite coverage</div>
-    <div>Explicit structure</div>
-    <div>Transparent sources</div>
-  </div>
 </section>
 
 <section class="section">
   <div class="container">
+    <div class="grid">
 
-    <div class="story-card">
-
-      <div class="story-media" onclick="openModal('image')">
-        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=1200" />
-        <div class="media-overlay"></div>
-      </div>
-
-      <div>
+      <!-- STORY -->
+      <div class="story">
         <div class="story-header">
-          <span>Red Sea · Global trade</span>
+          <span>Red Sea · Trade</span>
           <span class="status">Developing</span>
         </div>
 
@@ -348,78 +257,114 @@ footer {
         <div class="block">
           <div class="label">What is happening</div>
           <p>
-            Commercial shipping through the Red Sea has declined following
-            repeated attacks and security incidents involving cargo vessels.
+            Several major shipping firms have reduced Red Sea transit
+            following repeated security incidents involving cargo vessels.
           </p>
         </div>
 
         <div class="block">
           <div class="label">Why this matters</div>
           <p>
-            The corridor handles roughly 12% of global maritime trade.
-            Rerouting increases costs, delays goods, and introduces systemic
-            uncertainty across supply chains.
+            The route handles ~12% of global trade. Rerouting adds cost,
+            delays goods, and introduces systemic uncertainty.
           </p>
         </div>
 
-        <div class="depth">
-          <div class="depth-note">
-            Select depth. This choice does not affect future stories.
-          </div>
-          <div class="depth-controls">
-            <button class="depth-btn active">Overview</button>
-            <button class="depth-btn" onclick="openModal('context')">More context</button>
-            <button class="depth-btn" onclick="openModal('full')">Full coverage</button>
-          </div>
+        <div class="diff">
+          <strong>What changed:</strong> Two additional carriers announced
+          temporary suspension since your last visit.
         </div>
 
-      </div>
-    </div>
+        <div class="uncertainty">
+          Some incident reports remain unverified. Attribution is disputed.
+        </div>
 
+        <div class="controls">
+          <button class="control" onclick="toggle(this)">More context</button>
+          <button class="control" onclick="toggle(this)">Full coverage</button>
+        </div>
+
+        <div class="expand">
+          <p>
+            The Red Sea connects Europe and Asia via the Suez Canal.
+            Ships are rerouting around southern Africa, adding 7–12 days.
+          </p>
+
+          <div class="sources">
+            <span>European media: focus on supply chain impact</span>
+            <span>Regional media: emphasis on security escalation</span>
+            <span>US media: insurance and naval response</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STORY 2 -->
+      <div class="story">
+        <div class="story-header">
+          <span>EU · Technology</span>
+          <span class="status">Stable</span>
+        </div>
+
+        <div class="story-title">
+          EU AI Act enters implementation phase
+        </div>
+
+        <div class="block">
+          <div class="label">What is happening</div>
+          <p>
+            EU member states begin enforcing AI transparency
+            and risk classification requirements.
+          </p>
+        </div>
+
+        <div class="block">
+          <div class="label">Why this matters</div>
+          <p>
+            The framework sets a global precedent affecting
+            AI deployment beyond Europe.
+          </p>
+        </div>
+
+        <div class="diff">
+          <strong>What changed:</strong> Final compliance timelines clarified.
+        </div>
+
+        <div class="controls">
+          <button class="control" onclick="toggle(this)">More context</button>
+          <button class="control" onclick="toggle(this)">Full coverage</button>
+        </div>
+
+        <div class="expand">
+          <p>
+            High-risk systems will require documentation,
+            audit trails, and human oversight.
+          </p>
+
+          <div class="sources">
+            <span>EU press: consumer protection framing</span>
+            <span>US press: competitiveness concerns</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <footer>
-  © 2025 knew. You are currently up to date.
+  © 2025 knew. You are up to date.
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h3 id="modalTitle"></h3>
-    <p id="modalBody"></p>
-    <button class="modal-close" onclick="closeModal()">Close</button>
-  </div>
-</div>
-
 <script>
-const modal = document.getElementById("modal");
-const title = document.getElementById("modalTitle");
-const body = document.getElementById("modalBody");
+function toggle(btn) {
+  const story = btn.closest(".story");
+  const expand = story.querySelector(".expand");
+  const controls = story.querySelectorAll(".control");
 
-const modalData = {
-  image: {
-    title: "Regional overview",
-    body: "Satellite imagery and maritime tracking indicate reduced traffic through the Bab el-Mandeb strait over the past two weeks."
-  },
-  context: {
-    title: "Additional context",
-    body: "The Red Sea connects Europe and Asia via the Suez Canal. Rerouting ships around southern Africa adds 7–12 days and increases fuel consumption."
-  },
-  full: {
-    title: "Full coverage",
-    body: "Since late Q4, multiple carriers have suspended Red Sea operations. Insurance premiums have risen sharply, while naval patrols from several nations are active. Analysts warn prolonged disruption could contribute to renewed inflationary pressure."
-  }
-};
+  controls.forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
 
-function openModal(type) {
-  title.textContent = modalData[type].title;
-  body.textContent = modalData[type].body;
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  modal.style.display = "none";
+  expand.style.display = "block";
 }
 </script>
 

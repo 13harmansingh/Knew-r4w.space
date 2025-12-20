@@ -7,32 +7,38 @@
 
 <style>
 /* =====================================================
-   RESET + CORE
+   RESET + TYPE
 ===================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --black: #000000;
-  --near-black: #0a0a0a;
-  --panel: #0e0e0e;
+  --panel: #0c0c0c;
   --border: #1a1a1a;
 
-  --text: #eaeaea;
-  --text-muted: #9a9a9a;
+  --text: #f1f1f1;
+  --text-muted: #9b9b9b;
   --text-soft: #6f6f6f;
 
   --accent: #ffffff;
 
-  --shadow-soft: 0 30px 80px rgba(0,0,0,.65);
+  --shadow: 0 40px 90px rgba(0,0,0,.7);
 }
 
 html, body {
   height: 100%;
   background: var(--black);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  overflow-y: scroll;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
   scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
 /* =====================================================
@@ -44,94 +50,101 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem;
+  padding: 2rem;
 }
 
 /* =====================================================
-   INTRO / DECLARATION
+   DECLARATION
 ===================================================== */
 .intro {
-  max-width: 900px;
+  max-width: 820px;
   text-align: center;
 }
 
 .intro h1 {
-  font-size: 3.2rem;
-  font-weight: 300;
-  margin-bottom: 1.6rem;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
 .intro p {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
   max-width: 720px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2.5rem;
 }
 
 .intro-meta {
   display: flex;
   justify-content: center;
-  gap: 3.5rem;
-  font-size: 0.8rem;
+  gap: 3rem;
+  font-size: 0.75rem;
   color: var(--text-soft);
 }
 
 /* =====================================================
-   STORY SURFACE
+   ARTICLE CARD (VIEWPORT-AWARE)
 ===================================================== */
-.story {
+.article {
   width: 100%;
-  max-width: 960px;
-  height: 85vh;
-  background: linear-gradient(
-    180deg,
-    #0c0c0c 0%,
-    #000000 100%
-  );
+  max-width: 900px;
+  min-height: 85vh;
+  max-height: 90vh;
+  background: linear-gradient(180deg, #0f0f0f, #000);
   border: 1px solid var(--border);
   border-radius: 28px;
   padding: 3rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  transition: all .4s ease;
+}
+
+.article.expanded {
+  min-height: 75vh;
+  max-height: 80vh;
+  padding: 2.5rem;
+}
+
+.article-content {
+  overflow-y: auto;
+  padding-right: .5rem;
 }
 
 /* =====================================================
-   STORY HEADER
+   ARTICLE HEADER
 ===================================================== */
-.story-header {
+.meta {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-soft);
   margin-bottom: 1.5rem;
 }
 
-.story-title {
-  font-size: 2rem;
-  margin-bottom: 2.2rem;
+.title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
 }
 
 /* =====================================================
-   STORY BLOCKS
+   BLOCKS
 ===================================================== */
 .block {
   margin-bottom: 2rem;
 }
 
 .label {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
   color: var(--text-soft);
-  margin-bottom: 0.4rem;
+  margin-bottom: .4rem;
 }
 
 .block p {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  max-width: 780px;
+  font-size: 0.9rem;
 }
 
 /* =====================================================
@@ -140,182 +153,153 @@ html, body {
 .coverage {
   border-top: 1px solid var(--border);
   padding-top: 1.8rem;
+  margin-top: 1.8rem;
 }
 
 .coverage h4 {
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
   color: var(--text-soft);
   margin-bottom: 1rem;
 }
 
-.sources a {
+.coverage a {
   display: block;
   color: var(--text);
+  font-size: 0.85rem;
   text-decoration: none;
-  font-size: 0.9rem;
-  margin-bottom: 0.6rem;
-  opacity: 0.85;
+  margin-bottom: .6rem;
+  opacity: .85;
 }
 
-.sources a:hover {
+.coverage a:hover {
   opacity: 1;
   text-decoration: underline;
 }
 
 /* =====================================================
-   FOOTER
+   FOOTER / SIGNUP
 ===================================================== */
-.footer {
+.signup {
+  max-width: 520px;
+  width: 100%;
+  background: linear-gradient(180deg, #0f0f0f, #000);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 3rem;
   text-align: center;
+  box-shadow: var(--shadow);
 }
 
-.footer h2 {
-  font-size: 2.4rem;
-  font-weight: 300;
-  margin-bottom: 1.2rem;
+.signup h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-.footer p {
+.signup p {
   color: var(--text-muted);
+  font-size: 0.9rem;
   margin-bottom: 2.5rem;
 }
 
-.footer input {
-  padding: 0.9rem;
-  width: 260px;
-  border-radius: 8px;
-  border: none;
-  background: #111;
-  color: #fff;
-  margin-right: 0.5rem;
+.signup input {
+  width: 100%;
+  padding: 1rem;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  margin-bottom: 1rem;
 }
 
-.footer button {
-  padding: 0.9rem 1.6rem;
-  border-radius: 8px;
-  border: none;
+.signup button {
+  width: 100%;
+  padding: 1rem;
   background: #fff;
   color: #000;
-  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SECTION 1 -->
+<!-- VIEWPORT 1 -->
 <section class="section">
   <div class="intro">
     <h1>knew is orientation.</h1>
     <p>
-      knew explains what is happening in the world right now,
-      why it matters, what has changed since you last checked,
-      and what remains uncertain.
+      knew explains what is happening, why it matters,
+      what has changed, and what remains uncertain.
+      There are no feeds, alerts, or infinite scroll.
     </p>
     <div class="intro-meta">
-      <div>Finite stories</div>
-      <div>No feeds</div>
-      <div>No alerts</div>
+      <div>Finite</div>
+      <div>Explicit</div>
+      <div>Verifiable</div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 2 -->
+<!-- VIEWPORT 2 -->
 <section class="section">
-  <div class="story">
-    <div>
-      <div class="story-header">
-        <span>Red Sea · Global trade</span>
-        <span>Developing</span>
-      </div>
-
-      <div class="story-title">
-        Red Sea shipping routes disrupted
-      </div>
-
-      <div class="block">
-        <div class="label">What is happening</div>
-        <p>
-          Multiple international shipping companies have suspended
-          or reduced Red Sea transit following repeated attacks
-          on commercial vessels near the Bab el-Mandeb strait.
-        </p>
-      </div>
-
-      <div class="block">
-        <div class="label">Why this matters</div>
-        <p>
-          The Red Sea carries roughly 12% of global maritime trade.
-          Rerouting ships around southern Africa adds cost, delays,
-          and insurance risk across global supply chains.
-        </p>
-      </div>
-    </div>
-
-    <div class="coverage">
-      <h4>Full coverage</h4>
-      <div class="sources">
-        <a href="https://www.reuters.com/world/middle-east/" target="_blank">Reuters — Shipping firms divert vessels from Red Sea</a>
-        <a href="https://www.bbc.com/news/world-middle-east" target="_blank">BBC — Why the Red Sea is so important to global trade</a>
-        <a href="https://www.ft.com/global-trade" target="_blank">Financial Times — Insurance and freight costs surge</a>
-        <a href="https://apnews.com/hub/middle-east" target="_blank">Associated Press — Naval response and regional escalation</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 3 -->
-<section class="section">
-  <div class="story">
-    <div>
-      <div class="story-header">
+  <div class="article expanded">
+    <div class="article-content">
+      <div class="meta">
         <span>EU · Technology</span>
         <span>Stable</span>
       </div>
 
-      <div class="story-title">
+      <div class="title">
         EU AI Act enters enforcement phase
       </div>
 
       <div class="block">
         <div class="label">What is happening</div>
         <p>
-          European Union member states have begun enforcing
-          transparency, risk classification, and compliance
-          requirements under the AI Act.
+          European Union member states have begun enforcing transparency,
+          risk classification, and compliance requirements under the AI Act.
         </p>
       </div>
 
       <div class="block">
         <div class="label">Why this matters</div>
         <p>
-          The law establishes the first comprehensive regulatory
-          framework for AI and is expected to influence global
+          The law establishes the first comprehensive regulatory framework
+          for artificial intelligence and is expected to influence global
           technology governance.
         </p>
       </div>
-    </div>
 
-    <div class="coverage">
-      <h4>Full coverage</h4>
-      <div class="sources">
-        <a href="https://www.ft.com/artificial-intelligence" target="_blank">Financial Times — Global implications of EU AI rules</a>
-        <a href="https://www.reuters.com/technology/" target="_blank">Reuters — Enforcement timelines clarified</a>
-        <a href="https://www.politico.eu/tag/artificial-intelligence/" target="_blank">Politico — Industry and policy response</a>
-        <a href="https://apnews.com/hub/artificial-intelligence" target="_blank">Associated Press — Impact on U.S. tech firms</a>
+      <div class="coverage">
+        <h4>Full coverage</h4>
+        <a href="https://www.ft.com/artificial-intelligence" target="_blank">
+          Financial Times — Global implications of EU AI rules
+        </a>
+        <a href="https://www.reuters.com/technology/" target="_blank">
+          Reuters — Enforcement timelines clarified
+        </a>
+        <a href="https://www.politico.eu/tag/artificial-intelligence/" target="_blank">
+          Politico — Industry and policy response
+        </a>
+        <a href="https://apnews.com/hub/artificial-intelligence" target="_blank">
+          Associated Press — Impact on U.S. tech firms
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 4 -->
+<!-- VIEWPORT 3 -->
 <section class="section">
-  <div class="footer">
+  <div class="signup">
     <h2>You are up to date.</h2>
     <p>
-      knew updates twice daily. No alerts will be sent.
+      knew updates twice daily.  
+      No alerts will be sent.
     </p>
     <input type="email" placeholder="Email address" />
     <button>Request access</button>

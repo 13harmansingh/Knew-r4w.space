@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>knew — orientation for the present</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1"
+/>
+<title>knew</title>
 
 <style>
-/* =====================================================
-   RESET + TYPE
-===================================================== */
+/* =========================
+   RESET + SYSTEM
+========================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --black: #000000;
-  --panel: #0c0c0c;
+  --panel: #0b0b0b;
   --border: #1a1a1a;
 
-  --text: #f1f1f1;
-  --text-muted: #9b9b9b;
+  --text: #f2f2f2;
+  --text-muted: #9a9a9a;
   --text-soft: #6f6f6f;
 
-  --accent: #ffffff;
-
-  --shadow: 0 40px 90px rgba(0,0,0,.7);
+  --confidence-high: #22c55e;
+  --confidence-mid: #f59e0b;
+  --confidence-low: #ef4444;
 }
 
 html, body {
@@ -41,9 +44,9 @@ html, body {
   overflow-y: scroll;
 }
 
-/* =====================================================
-   VIEWPORT SECTIONS
-===================================================== */
+/* =========================
+   VIEWPORT
+========================= */
 .section {
   height: 100vh;
   scroll-snap-align: start;
@@ -53,28 +56,31 @@ html, body {
   padding: 2rem;
 }
 
-/* =====================================================
-   DECLARATION
-===================================================== */
-.intro {
+/* =========================
+   SLIDE 1 — BRAND
+========================= */
+.brand {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+/* =========================
+   SLIDE 2 — ORIENTATION
+========================= */
+.orientation {
   max-width: 820px;
   text-align: center;
 }
 
-.intro h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.intro p {
-  font-size: 1.05rem;
+.orientation p {
   color: var(--text-muted);
-  max-width: 720px;
-  margin: 0 auto 2.5rem;
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
 }
 
-.intro-meta {
+.orientation-meta {
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   gap: 3rem;
@@ -82,9 +88,9 @@ html, body {
   color: var(--text-soft);
 }
 
-/* =====================================================
-   ARTICLE CARD (VIEWPORT-AWARE)
-===================================================== */
+/* =========================
+   ARTICLE
+========================= */
 .article {
   width: 100%;
   max-width: 900px;
@@ -92,28 +98,17 @@ html, body {
   max-height: 90vh;
   background: linear-gradient(180deg, #0f0f0f, #000);
   border: 1px solid var(--border);
-  border-radius: 28px;
+  border-radius: 26px;
   padding: 3rem;
-  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  transition: all .4s ease;
-}
-
-.article.expanded {
-  min-height: 75vh;
-  max-height: 80vh;
-  padding: 2.5rem;
 }
 
 .article-content {
   overflow-y: auto;
-  padding-right: .5rem;
+  padding-right: 0.5rem;
 }
 
-/* =====================================================
-   ARTICLE HEADER
-===================================================== */
 .meta {
   display: flex;
   justify-content: space-between;
@@ -123,23 +118,20 @@ html, body {
 }
 
 .title {
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
   margin-bottom: 2rem;
 }
 
-/* =====================================================
-   BLOCKS
-===================================================== */
 .block {
   margin-bottom: 2rem;
 }
 
 .label {
   font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   color: var(--text-soft);
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
 }
 
 .block p {
@@ -147,29 +139,43 @@ html, body {
   font-size: 0.9rem;
 }
 
-/* =====================================================
-   FULL COVERAGE
-===================================================== */
-.coverage {
-  border-top: 1px solid var(--border);
-  padding-top: 1.8rem;
-  margin-top: 1.8rem;
+/* =========================
+   CONFIDENCE BAND
+========================= */
+.confidence {
+  margin: 1.5rem 0;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.coverage h4 {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  color: var(--text-soft);
-  margin-bottom: 1rem;
+.band {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.high { background: var(--confidence-high); }
+.mid { background: var(--confidence-mid); }
+.low { background: var(--confidence-low); }
+
+/* =========================
+   FULL COVERAGE
+========================= */
+.coverage {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .coverage a {
   display: block;
   color: var(--text);
-  font-size: 0.85rem;
   text-decoration: none;
-  margin-bottom: .6rem;
-  opacity: .85;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  opacity: 0.85;
 }
 
 .coverage a:hover {
@@ -177,34 +183,26 @@ html, body {
   text-decoration: underline;
 }
 
-/* =====================================================
-   FOOTER / SIGNUP
-===================================================== */
+/* =========================
+   SIGNUP
+========================= */
 .signup {
   max-width: 520px;
-  width: 100%;
   background: linear-gradient(180deg, #0f0f0f, #000);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 3rem;
   text-align: center;
-  box-shadow: var(--shadow);
-}
-
-.signup h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
 }
 
 .signup p {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 2.5rem;
+  margin: 1.5rem 0 2.5rem;
 }
 
 .signup input {
   width: 100%;
+  font-size: 16px; /* prevents iOS zoom */
   padding: 1rem;
   background: #000;
   border: 1px solid var(--border);
@@ -227,84 +225,121 @@ html, body {
 
 <body>
 
-<!-- VIEWPORT 1 -->
+<!-- SLIDE 1 -->
 <section class="section">
-  <div class="intro">
-    <h1>knew is orientation.</h1>
+  <div class="brand">knew</div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="section">
+  <div class="orientation">
     <p>
-      knew explains what is happening, why it matters,
-      what has changed, and what remains uncertain.
-      There are no feeds, alerts, or infinite scroll.
+      knew provides orientation on what is happening in the world right now.
+      Stories are finite, structured, and updated every 15 minutes.
     </p>
-    <div class="intro-meta">
-      <div>Finite</div>
-      <div>Explicit</div>
-      <div>Verifiable</div>
+    <div class="orientation-meta">
+      <div>No feeds</div>
+      <div>No alerts</div>
+      <div>Updated every 15 minutes</div>
     </div>
   </div>
 </section>
 
-<!-- VIEWPORT 2 -->
-<section class="section">
-  <div class="article expanded">
+<!-- SLIDE 3 — STORY -->
+<section class="section" data-story="eu-ai">
+  <div class="article">
     <div class="article-content">
       <div class="meta">
         <span>EU · Technology</span>
-        <span>Stable</span>
+        <span id="last-eu-ai"></span>
       </div>
 
-      <div class="title">
-        EU AI Act enters enforcement phase
-      </div>
+      <div class="title">EU AI Act enters enforcement phase</div>
 
       <div class="block">
         <div class="label">What is happening</div>
         <p>
-          European Union member states have begun enforcing transparency,
-          risk classification, and compliance requirements under the AI Act.
+          EU member states have begun enforcing transparency and compliance
+          requirements under the AI Act.
         </p>
       </div>
 
       <div class="block">
         <div class="label">Why this matters</div>
         <p>
-          The law establishes the first comprehensive regulatory framework
-          for artificial intelligence and is expected to influence global
-          technology governance.
+          This establishes the first comprehensive regulatory framework
+          for artificial intelligence and is expected to influence global norms.
         </p>
       </div>
 
+      <div class="confidence">
+        <div class="band high"></div>
+        High confidence · Legal texts published and enforcement underway
+      </div>
+
       <div class="coverage">
-        <h4>Full coverage</h4>
-        <a href="https://www.ft.com/artificial-intelligence" target="_blank">
-          Financial Times — Global implications of EU AI rules
-        </a>
-        <a href="https://www.reuters.com/technology/" target="_blank">
-          Reuters — Enforcement timelines clarified
-        </a>
-        <a href="https://www.politico.eu/tag/artificial-intelligence/" target="_blank">
-          Politico — Industry and policy response
-        </a>
-        <a href="https://apnews.com/hub/artificial-intelligence" target="_blank">
-          Associated Press — Impact on U.S. tech firms
-        </a>
+        <a href="https://www.ft.com/artificial-intelligence" target="_blank">Financial Times — Global implications</a>
+        <a href="https://www.reuters.com/technology/" target="_blank">Reuters — Enforcement timelines</a>
+        <a href="https://www.politico.eu/tag/artificial-intelligence/" target="_blank">Politico — Industry response</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VIEWPORT 3 -->
+<!-- SLIDE 4 — STORY -->
+<section class="section" data-story="red-sea">
+  <div class="article">
+    <div class="article-content">
+      <div class="meta">
+        <span>Red Sea · Trade</span>
+        <span id="last-red-sea"></span>
+      </div>
+
+      <div class="title">Red Sea shipping routes disrupted</div>
+
+      <div class="block">
+        <div class="label">What is happening</div>
+        <p>
+          Major shipping firms are rerouting vessels after repeated
+          security incidents near the Bab el-Mandeb strait.
+        </p>
+      </div>
+
+      <div class="confidence">
+        <div class="band mid"></div>
+        Medium confidence · Some reports remain disputed
+      </div>
+
+      <div class="coverage">
+        <a href="https://www.bbc.com/news/world-middle-east" target="_blank">BBC — Strategic importance explained</a>
+        <a href="https://www.reuters.com/world/middle-east/" target="_blank">Reuters — Shipping firms divert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — SIGNUP -->
 <section class="section">
   <div class="signup">
     <h2>You are up to date.</h2>
     <p>
-      knew updates twice daily.  
+      knew updates every 15 minutes.  
       No alerts will be sent.
     </p>
     <input type="email" placeholder="Email address" />
     <button>Request access</button>
   </div>
 </section>
+
+<script>
+document.querySelectorAll("[data-story]").forEach(section => {
+  const id = section.dataset.story;
+  const now = new Date().toLocaleString();
+  localStorage.setItem("last-" + id, now);
+  const el = document.getElementById("last-" + id);
+  if (el) el.textContent = "Last read: " + now;
+});
+</script>
 
 </body>
 </html>

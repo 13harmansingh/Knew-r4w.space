@@ -2,141 +2,274 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, maximum-scale=1"
-/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>knew — orientation</title>
 
 <style>
-/* =====================================================
-   RESET & SYSTEM
-===================================================== */
+/* =========================================
+   1. SYSTEM & RESET
+========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --bg: #050505;
   --surface: #0a0a0a;
+  --surface-highlight: #111;
   --border: #222;
-
+  
   --text-main: #ededed;
   --text-muted: #888;
   --text-dim: #444;
 
-  --accent: #ffffff;
+  --accent-blue: #3b82f6; /* Tech/Space */
+  --accent-red: #ef4444;  /* Conflict */
+  --accent-green: #22c55e;/* Climate/Good */
+  --accent-amber: #f59e0b;/* Caution */
+  
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-html, body {
-  height: 100%;
+body {
   background: var(--bg);
   color: var(--text-main);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Mono",
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Mono", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 100vh;
   overflow-y: scroll;
+  /* MANDATORY SCROLL SNAPPING */
   scroll-snap-type: y mandatory;
-}
-
-/* Reduce motion support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
+  scroll-behavior: smooth;
+  cursor: default;
 }
 
 /* Hide scrollbar */
-body::-webkit-scrollbar { width: 0; }
+body::-webkit-scrollbar { width: 0; height: 0; }
 
-/* =====================================================
-   SECTIONS
-===================================================== */
+/* =========================================
+   2. VIEWPORT ARCHITECTURE
+========================================= */
 section {
   height: 100vh;
   width: 100%;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: always; /* Force stop at each card */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
   position: relative;
+  perspective: 1000px;
 }
 
-/* =====================================================
-   BRAND
-===================================================== */
+/* =========================================
+   3. TYPOGRAPHY & BRAND
+========================================= */
+.brand-layer {
+  text-align: center;
+  z-index: 10;
+}
+
 .logo {
+  font-family: "SF Mono", monospace;
   font-size: 4rem;
   font-weight: 700;
   letter-spacing: -0.05em;
+  background: linear-gradient(180deg, #fff, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
 }
 
-/* =====================================================
-   CARD
-===================================================== */
+.mission {
+  color: var(--text-muted);
+  max-width: 400px;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0 auto;
+}
+
+/* =========================================
+   4. THE "BILLION DOLLAR" CARD
+========================================= */
 .card {
   width: 90%;
   max-width: 600px;
-  background: rgba(15,15,15,0.7);
+  background: rgba(15, 15, 15, 0.6);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 2.5rem;
+  
+  /* Initial State for Animation */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: 
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out),
+    box-shadow 0.8s ease;
 }
 
-/* =====================================================
-   FOOTER
-===================================================== */
-.footer-content {
-  text-align: center;
-  max-width: 420px;
+/* Active State (Triggered by JS) */
+section.active .card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  /* The "Atmosphere" Glow */
+  box-shadow: 
+    0 30px 60px -15px rgba(0,0,0,0.8),
+    0 0 0 1px rgba(255,255,255,0.05),
+    var(--glow-color, 0 0 0 transparent); 
 }
 
-input[type="email"] {
-  width: 100%;
-  font-size: 16px; /* prevents mobile zoom */
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-  color: white;
-  outline: none;
-  text-align: center;
-}
+/* Contextual Glow Colors */
+section[data-category="conflict"] .card { --glow-color: 0 -40px 100px -30px rgba(239, 68, 68, 0.15); }
+section[data-category="tech"] .card { --glow-color: 0 -40px 100px -30px rgba(59, 130, 246, 0.15); }
+section[data-category="climate"] .card { --glow-color: 0 -40px 100px -30px rgba(34, 197, 94, 0.1); }
+section[data-category="space"] .card { --glow-color: 0 -40px 100px -30px rgba(255, 255, 255, 0.1); }
 
-/* =====================================================
-   PROGRESS INDICATOR
-===================================================== */
-.progress {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+/* =========================================
+   5. CARD CONTENT LAYOUT
+========================================= */
+.card-header {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 100;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.progress-dot {
+.tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-pulse {
   width: 6px;
   height: 6px;
+  background: var(--accent-red);
   border-radius: 50%;
-  background: var(--text-dim);
-  cursor: pointer;
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: pulse 2s infinite;
 }
 
-.progress-dot.active {
-  background: var(--accent);
+.timestamp {
+  font-family: "SF Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
 }
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.content-block {
+  margin-bottom: 2rem;
+}
+
+.label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* =========================================
+   6. INTERACTIVE ELEMENTS (Context & Audio)
+========================================= */
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--text-muted);
+}
+
+.btn-icon { opacity: 0.6; }
+
+/* The "Map/Context" Hidden Drawer */
+.context-drawer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  background: #000;
+  border-radius: 12px;
+  margin-top: 0;
+  opacity: 0.5;
+}
+
+.context-drawer.open {
+  max-height: 300px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  opacity: 1;
+}
+
+.context-content {
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Placeholder for diagrams */
+.diagram-placeholder {
+  width: 100%;
+  height: 150px;
+  background: repeating-linear-gradient(
+    45deg,
+    #111,
+    #111 10px,
+    #161616 10px,
+    #161616 20px
+  );
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-family: monospace;
+}
+
+/* =========================================
+   7. FOOTER & INPUT
+========================================= */
+.footer-content {
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
 /* =========================================
    8. HARD VIEWPORT LOCK (NO BLEED)
 ========================================= */
@@ -147,141 +280,310 @@ html {
 body.locked {
   overflow: hidden;
 }
+input[type="email"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input[type="email"]:focus {
+  border-color: var(--text-main);
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
 </style>
 </head>
-
 <body>
 
-<!-- SECTION 0 -->
-<section>
-  <div class="logo">knew</div>
-</section>
-
-<!-- SECTION 1 -->
-<section>
-  <div class="card">
-    Orientation for the present.<br><br>
-    Finite stories. No feeds. No alerts.<br>
-    Updated every 15 minutes.
+<section class="section">
+  <div class="brand-layer">
+    <div class="logo">knew</div>
+    <div class="mission">
+      Orientation for the present.<br>
+      Live briefing. No noise.
+    </div>
+    <div style="margin-top: 2rem; font-size: 0.7rem; color: var(--text-dim); font-family: monospace;">
+      SCROLL TO BEGIN
+    </div>
   </div>
 </section>
 
-<!-- SECTION 2 -->
-<section>
+<section class="section" data-category="conflict">
   <div class="card">
-    <strong>Red Sea shipping disruption</strong><br><br>
-    Trade lanes are being rerouted following renewed security incidents.
+    <div class="card-header">
+      <div class="tag">
+        <div class="live-pulse"></div>
+        Geopolitics · Trade
+      </div>
+      <div class="timestamp" data-time-offset="15">Updated 15m ago</div>
+    </div>
+
+    <h2>Red Sea shipping routes face renewed disruption</h2>
+
+    <div class="content-block">
+      <div class="label">What is happening</div>
+      <p>
+        Two major logistics carriers announced a suspension of Red Sea transits this morning following fresh security incidents near the Bab el-Mandeb strait.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <div class="label">Why it matters</div>
+      <p>
+        Rerouting around Africa adds 10 days to delivery times. This is the third consecutive week of elevated risk, signaling a structural rather than temporary shift in global trade lanes.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="toggleContext(this)">
+        <span class="btn-icon">⊕</span> View Map
+      </button>
+      <button class="btn">
+        <span class="btn-icon">▶</span> Listen (1m)
+      </button>
+    </div>
+
+    <div class="context-drawer">
+      <div class="context-content">
+        <div class="diagram-placeholder">
+          
+        </div>
+        <div style="margin-top:1rem;">
+          <strong>Choke Point Analysis:</strong><br>
+          Only 40% of normal traffic is passing through Suez. The alternative Cape of Good Hope route increases fuel costs by ~$1M per voyage.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- SECTION 3 -->
-<section>
+<section class="section" data-category="tech">
   <div class="card">
-    <strong>EU AI Act enforcement</strong><br><br>
-    New transparency and compliance rules now apply to AI systems.
+    <div class="card-header">
+      <div class="tag">
+        <span style="color:var(--accent-blue)">●</span>
+        Technology · Policy
+      </div>
+      <div class="timestamp" data-time-offset="42">Updated 42m ago</div>
+    </div>
+
+    <h2>EU AI Act enters enforcement phase</h2>
+
+    <div class="content-block">
+      <div class="label">The Shift</div>
+      <p>
+        As of today, EU regulators have begun enforcing transparency requirements for "General Purpose AI" models. US tech giants must now disclose training data summaries to operate in Europe.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <div class="label">Global Impact</div>
+      <p>
+        This creates a "Brussels Effect," forcing companies to either split their products regionally or adopt EU standards globally. Most are choosing the latter.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="toggleContext(this)">
+        <span class="btn-icon">⊕</span> Compliance Timeline
+      </button>
+      <button class="btn" onclick="window.open('https://artificialintelligenceact.eu', '_blank')">
+        <span class="btn-icon">↗</span> Read Full Text
+      </button>
+    </div>
+
+    <div class="context-drawer">
+      <div class="context-content">
+        <div class="diagram-placeholder">
+          
+        </div>
+        <p style="margin-top:10px; font-size:0.75rem;">
+          <strong>Risk Pyramid:</strong><br>
+          1. Unacceptable Risk (Banned)<br>
+          2. High Risk (Strict Audit)<br>
+          3. Limited Risk (Transparency)<br>
+          4. Minimal Risk (No restrictions)
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- SECTION 4 -->
-<section>
+<section class="section" data-category="space">
+  <div class="card">
+    <div class="card-header">
+      <div class="tag">
+        <span style="color:white">●</span>
+        Space · Frontier
+      </div>
+      <div class="timestamp" data-time-offset="120">Updated 2h ago</div>
+    </div>
+
+    <h2>Starship achieves orbital transfer milestone</h2>
+
+    <div class="content-block">
+      <div class="label">Milestone</div>
+      <p>
+        SpaceX has successfully demonstrated in-orbit fuel transfer simulation during the latest test flight. This technology is the critical prerequisite for lunar and deep-space missions.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="toggleContext(this)">
+        <span class="btn-icon">⊕</span> Flight Path
+      </button>
+    </div>
+
+    <div class="context-drawer">
+      <div class="context-content">
+        <div class="diagram-placeholder">
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-category="climate">
+  <div class="card">
+    <div class="card-header">
+      <div class="tag">
+        <span style="color:var(--accent-green)">●</span>
+        Climate · Science
+      </div>
+      <div class="timestamp" data-time-offset="360">Updated 6h ago</div>
+    </div>
+
+    <h2>New data on Atlantic circulation slowing</h2>
+
+    <div class="content-block">
+      <div class="label">The Science</div>
+      <p>
+        A new synthesis report indicates the Atlantic Meridional Overturning Circulation (AMOC) is at its weakest point in 1,000 years. This current regulates weather patterns across Europe and North America.
+      </p>
+    </div>
+    
+    <div class="controls">
+      <button class="btn" onclick="toggleContext(this)">
+        <span class="btn-icon">⊕</span> See Diagram
+      </button>
+    </div>
+    
+    <div class="context-drawer">
+      <div class="context-content">
+        <div class="diagram-placeholder">
+          [attachment_0](attachment)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="footer-content">
-    <div class="logo" style="font-size:2rem;">knew</div><br>
-    You are up to date.<br><br>
+    <div class="logo" style="font-size: 2rem;">knew</div>
+    <p style="margin-bottom: 2rem;">You are up to date.</p>
+    
     <input type="email" placeholder="Enter email for daily briefing" />
+    
+    <div style="margin-top: 3rem; font-size: 0.7rem; color: var(--text-dim);">
+      API STATUS: CONNECTED<br>
+      © 2025 KNEW INC.
+    </div>
   </div>
 </section>
-
-<!-- PROGRESS INDICATOR -->
-<div class="progress" id="progress"></div>
 
 <script>
-/* =====================================================
-   FULLSCREEN NAVIGATION SYSTEM
-===================================================== */
-const sections = Array.from(document.querySelectorAll("section"));
-const progress = document.getElementById("progress");
-let currentIndex = 0;
-let isLocked = false;
-
-/* Build progress dots */
-sections.forEach((_, i) => {
-  const dot = document.createElement("div");
-  dot.className = "progress-dot";
-  dot.onclick = () => goTo(i);
-  progress.appendChild(dot);
-});
-
-const dots = Array.from(document.querySelectorAll(".progress-dot"));
-
-function updateProgress() {
-  dots.forEach((d, i) => d.classList.toggle("active", i === currentIndex));
-}
-
-function goTo(index, save = true) {
-  if (index < 0 || index >= sections.length || isLocked) return;
-
-  isLocked = true;
-  currentIndex = index;
-
-  sections[index].scrollIntoView({ behavior: "smooth" });
-  updateProgress();
-
-  if (save) {
-    localStorage.setItem("knew:lastSection", index);
-  }
-
-  setTimeout(() => isLocked = false, 700);
-}
-
-/* Wheel */
-window.addEventListener("wheel", e => {
-  if (isLocked) return;
-  if (e.target.tagName === "INPUT") return;
-
-  if (e.deltaY > 30) goTo(currentIndex + 1);
-  if (e.deltaY < -30) goTo(currentIndex - 1);
-}, { passive: true });
-
-/* Keyboard */
-window.addEventListener("keydown", e => {
-  if (document.activeElement.tagName === "INPUT") return;
-
-  switch (e.key) {
-    case "ArrowDown":
-    case "PageDown":
-      goTo(currentIndex + 1);
-      break;
-    case "ArrowUp":
-    case "PageUp":
-      goTo(currentIndex - 1);
-      break;
-    case "Home":
-      goTo(0);
-      break;
-    case "End":
-      goTo(sections.length - 1);
-      break;
-  }
-});
-
-/* Sync on scroll (mobile touch) */
-window.addEventListener("scroll", () => {
-  if (isLocked) return;
-  const idx = Math.round(window.scrollY / window.innerHeight);
-  if (idx !== currentIndex) {
-    currentIndex = idx;
-    updateProgress();
-  }
-});
-
-/* Resume last section (except first visit) */
-const saved = localStorage.getItem("knew:lastSection");
-if (saved !== null) {
-  setTimeout(() => goTo(parseInt(saved), false), 300);
-}
-
-updateProgress();
 // ===============================================
+// 1. ANIMATION OBSERVER (The "Atmosphere")
+// ===============================================
+const observerOptions = {
+  root: null,
+  threshold: 0.6 // Trigger when 60% of card is visible
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    // Add 'active' class when in view, remove when out
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    } else {
+      entry.target.classList.remove('active');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('section').forEach(section => {
+  observer.observe(section);
+});
+
+// ===============================================
+// 2. CONTEXT TOGGLE LOGIC
+// ===============================================
+function toggleContext(btn) {
+  const card = btn.closest('.card');
+  const drawer = card.querySelector('.context-drawer');
+  const isOpen = drawer.classList.contains('open');
+  
+  // Close all other drawers first (optional, keeps it clean)
+  document.querySelectorAll('.context-drawer').forEach(d => d.classList.remove('open'));
+  
+  if (!isOpen) {
+    drawer.classList.add('open');
+    btn.style.background = 'rgba(255,255,255,0.15)';
+  } else {
+    btn.style.background = '';
+  }
+}
+
+// ===============================================
+// 3. LIVE TIME SIMULATION
+// ===============================================
+// This makes the "Updated Xm ago" tags valid relative to load time
+function updateTimestamps() {
+  const elements = document.querySelectorAll('.timestamp');
+  elements.forEach(el => {
+    const minutes = parseInt(el.getAttribute('data-time-offset'));
+    // In a real app, you would compare Date.now() with an API timestamp
+    el.innerText = `Updated ${minutes}m ago`;
+  });
+}
+updateTimestamps();
+
+// ===============================================
+// 4. API INTEGRATION (PLACEHOLDER)
+// ===============================================
+/* TO MAKE THIS LIVE:
+   1. Get an API key from newsapi.org
+   2. Uncomment the fetch function below
+   3. Map the JSON response to the HTML structure
+*/
+
+async function fetchLiveStories() {
+  // const apiKey = 'YOUR_KEY_HERE';
+  // const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+  
+  // try {
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   console.log("Live Data:", data);
+  //   // Logic to inject data into DOM goes here
+  // } catch (error) {
+  //   console.error("API Error", error);
+  // }
+}// ===============================================
 // 5. VIEWPORT SCROLL CONTROLLER (HARD SNAP)
 // ===============================================
 

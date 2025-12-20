@@ -7,44 +7,48 @@
 
 <style>
 /* =====================================================
-   knew — Dark System
+   SYSTEM
 ===================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0b0f14;
-  --panel: #111827;
-  --panel-soft: #0f172a;
+  --bg: #0a0d12;
+  --panel: #0f172a;
+  --panel-elevated: #111827;
   --border: #1f2937;
 
   --text: #e5e7eb;
   --text-muted: #9ca3af;
   --text-soft: #6b7280;
 
-  --accent: #e5e7eb;
-  --accent-dim: #374151;
+  --accent: #3b82f6;
+  --accent-soft: #1e40af;
 
-  --focus: #2563eb;
+  --success: #22c55e;
+  --warning: #f59e0b;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
+  background: radial-gradient(1200px 600px at 50% -200px, #111827, var(--bg));
   color: var(--text);
   line-height: 1.65;
 }
 
 /* =====================================================
-   Navigation
+   NAV
 ===================================================== */
 nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10,13,18,0.75);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  background: rgba(11,15,20,0.9);
-  backdrop-filter: blur(8px);
 }
 
 .nav-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;
@@ -53,69 +57,104 @@ nav {
 }
 
 .logo {
-  letter-spacing: 0.18em;
-  font-size: 0.9rem;
-  color: var(--text);
-  text-decoration: none;
+  letter-spacing: 0.22em;
+  font-size: 0.8rem;
 }
 
 .nav-meta {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-soft);
 }
 
 /* =====================================================
-   Hero / Orientation
+   HERO
 ===================================================== */
 .hero {
   max-width: 900px;
   margin: 0 auto;
-  padding: 6rem 2rem 4rem;
+  padding: 6rem 2rem 5rem;
   text-align: center;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 300;
   margin-bottom: 1.2rem;
 }
 
 .hero p {
   color: var(--text-muted);
-  font-size: 1.05rem;
-  margin-bottom: 2.5rem;
+  max-width: 680px;
+  margin: 0 auto 3rem;
 }
 
-.hero-stats {
+.hero-metrics {
   display: flex;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 3rem;
   font-size: 0.8rem;
   color: var(--text-soft);
 }
 
 /* =====================================================
-   Story Panel
+   STORY GRID
 ===================================================== */
 .section {
-  background: var(--panel);
-  border-top: 1px solid var(--border);
   padding: 4rem 2rem;
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .story-card {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 2.5rem;
+  background: linear-gradient(180deg, var(--panel), var(--panel-elevated));
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 2.2rem;
-  background: var(--panel-soft);
+  border-radius: 20px;
+  padding: 2.5rem;
+  transition: transform .35s ease, box-shadow .35s ease;
 }
 
-.story-meta {
+.story-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0,0,0,.35);
+}
+
+/* =====================================================
+   STORY IMAGE
+===================================================== */
+.story-media {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.story-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.story-media:hover img {
+  transform: scale(1.05);
+}
+
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+}
+
+/* =====================================================
+   STORY CONTENT
+===================================================== */
+.story-header {
   display: flex;
   justify-content: space-between;
   font-size: 0.7rem;
@@ -123,21 +162,28 @@ nav {
   margin-bottom: 1rem;
 }
 
+.status {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(245,158,11,0.15);
+  color: var(--warning);
+}
+
 .story-title {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 1.7rem;
+  margin-bottom: 1.8rem;
 }
 
 .block {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
 }
 
 .label {
   font-size: 0.65rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-soft);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .block p {
@@ -145,7 +191,7 @@ nav {
 }
 
 /* =====================================================
-   Depth Controls
+   DEPTH CONTROLS
 ===================================================== */
 .depth {
   border-top: 1px solid var(--border);
@@ -169,41 +215,53 @@ nav {
   border: 1px solid var(--border);
   color: var(--text-muted);
   padding: 0.65rem;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.8rem;
+  transition: all .25s ease;
+}
+
+.depth-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .depth-btn.active {
-  background: var(--accent);
-  color: #000;
+  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
   border-color: var(--accent);
+  color: #fff;
 }
 
 /* =====================================================
-   Modal
+   MODAL
 ===================================================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(6px);
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 100;
 }
 
 .modal {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  max-width: 720px;
-  width: 90%;
-  padding: 2.5rem;
+  border-radius: 24px;
+  max-width: 820px;
+  width: 92%;
+  padding: 3rem;
+  animation: modalIn .4s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(.98); }
+  to { opacity: 1; transform: none; }
 }
 
 .modal h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
@@ -212,29 +270,34 @@ nav {
   margin-bottom: 1rem;
 }
 
-.modal-footer {
-  margin-top: 2rem;
-  text-align: right;
-}
-
 .modal-close {
-  background: var(--accent);
-  color: #000;
+  margin-top: 2rem;
+  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
+  color: #fff;
   border: none;
-  padding: 0.6rem 1.4rem;
-  border-radius: 6px;
+  padding: 0.7rem 1.8rem;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 /* =====================================================
-   Footer
+   FOOTER
 ===================================================== */
 footer {
+  border-top: 1px solid var(--border);
   padding: 3rem 2rem;
   text-align: center;
   font-size: 0.75rem;
   color: var(--text-soft);
-  border-top: 1px solid var(--border);
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 900px) {
+  .story-card {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -243,22 +306,22 @@ footer {
 
 <nav>
   <div class="nav-container">
-    <a class="logo">KNEW</a>
-    <div class="nav-meta">Last updated · 16:54 UTC</div>
+    <div class="logo">KNEW</div>
+    <div class="nav-meta">6 stories · Updated 16:54 UTC</div>
   </div>
 </nav>
 
 <section class="hero">
   <h1>Orientation for the present</h1>
   <p>
-    knew summarizes what is happening in the world right now,
-    why it matters, and where uncertainty remains.
+    knew explains what is happening in the world right now,
+    why it matters, and what remains uncertain — without feeds,
+    alerts, or emotional manipulation.
   </p>
-
-  <div class="hero-stats">
-    <div>6 active stories</div>
-    <div>18 primary sources</div>
-    <div>No alerts · No feed</div>
+  <div class="hero-metrics">
+    <div>Finite coverage</div>
+    <div>Explicit structure</div>
+    <div>Transparent sources</div>
   </div>
 </section>
 
@@ -266,93 +329,92 @@ footer {
   <div class="container">
 
     <div class="story-card">
-      <div class="story-meta">
-        <span>Red Sea · Maritime trade</span>
-        <span>Developing</span>
+
+      <div class="story-media" onclick="openModal('image')">
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=1200" />
+        <div class="media-overlay"></div>
       </div>
 
-      <div class="story-title">
-        Red Sea shipping routes disrupted
-      </div>
-
-      <div class="block">
-        <div class="label">What is happening</div>
-        <p>
-          Commercial shipping through the Red Sea has declined following
-          repeated attacks and security incidents involving cargo vessels.
-          Several major operators have rerouted traffic away from the region.
-        </p>
-      </div>
-
-      <div class="block">
-        <div class="label">Why this matters</div>
-        <p>
-          The Red Sea carries roughly one eighth of global seaborne trade.
-          Rerouting adds cost, increases transit times, and introduces
-          uncertainty into energy, food, and manufacturing supply chains.
-        </p>
-      </div>
-
-      <div class="depth">
-        <div class="depth-note">
-          Choose how much detail you want. This does not affect future stories.
+      <div>
+        <div class="story-header">
+          <span>Red Sea · Global trade</span>
+          <span class="status">Developing</span>
         </div>
-        <div class="depth-controls">
-          <button class="depth-btn active">Overview</button>
-          <button class="depth-btn" onclick="openModal('context')">More context</button>
-          <button class="depth-btn" onclick="openModal('full')">Full coverage</button>
-        </div>
-      </div>
 
+        <div class="story-title">
+          Red Sea shipping routes disrupted
+        </div>
+
+        <div class="block">
+          <div class="label">What is happening</div>
+          <p>
+            Commercial shipping through the Red Sea has declined following
+            repeated attacks and security incidents involving cargo vessels.
+          </p>
+        </div>
+
+        <div class="block">
+          <div class="label">Why this matters</div>
+          <p>
+            The corridor handles roughly 12% of global maritime trade.
+            Rerouting increases costs, delays goods, and introduces systemic
+            uncertainty across supply chains.
+          </p>
+        </div>
+
+        <div class="depth">
+          <div class="depth-note">
+            Select depth. This choice does not affect future stories.
+          </div>
+          <div class="depth-controls">
+            <button class="depth-btn active">Overview</button>
+            <button class="depth-btn" onclick="openModal('context')">More context</button>
+            <button class="depth-btn" onclick="openModal('full')">Full coverage</button>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>
 </section>
 
 <footer>
-  © 2025 knew. All rights reserved. You are currently up to date.
+  © 2025 knew. You are currently up to date.
 </footer>
 
-<!-- ================= MODAL ================= -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3 id="modalTitle"></h3>
     <p id="modalBody"></p>
-
-    <div class="modal-footer">
-      <button class="modal-close" onclick="closeModal()">Close</button>
-    </div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
   </div>
 </div>
 
 <script>
 const modal = document.getElementById("modal");
-const modalTitle = document.getElementById("modalTitle");
-const modalBody = document.getElementById("modalBody");
+const title = document.getElementById("modalTitle");
+const body = document.getElementById("modalBody");
 
-const content = {
+const modalData = {
+  image: {
+    title: "Regional overview",
+    body: "Satellite imagery and maritime tracking indicate reduced traffic through the Bab el-Mandeb strait over the past two weeks."
+  },
   context: {
     title: "Additional context",
-    body: `
-The Red Sea connects the Mediterranean to the Indian Ocean through
-the Suez Canal. Disruptions force ships to reroute around southern Africa,
-adding 7–12 days to transit times and significantly increasing fuel costs.
-    `
+    body: "The Red Sea connects Europe and Asia via the Suez Canal. Rerouting ships around southern Africa adds 7–12 days and increases fuel consumption."
   },
   full: {
     title: "Full coverage",
-    body: `
-Since late Q4, attacks on vessels near the Bab el-Mandeb strait have led
-to insurance premium spikes and multinational naval patrols. Analysts
-estimate prolonged disruption could raise global shipping costs by 10–15%
-and contribute to renewed inflationary pressure in import-dependent regions.
-    `
+    body: "Since late Q4, multiple carriers have suspended Red Sea operations. Insurance premiums have risen sharply, while naval patrols from several nations are active. Analysts warn prolonged disruption could contribute to renewed inflationary pressure."
   }
 };
 
 function openModal(type) {
-  modalTitle.textContent = content[type].title;
-  modalBody.textContent = content[type].body;
+  title.textContent = modalData[type].title;
+  body.textContent = modalData[type].body;
   modal.style.display = "flex";
 }
 

@@ -137,6 +137,16 @@ input[type="email"] {
 .progress-dot.active {
   background: var(--accent);
 }
+/* =========================================
+   8. HARD VIEWPORT LOCK (NO BLEED)
+========================================= */
+html {
+  scroll-behavior: auto; /* JS controls motion */
+}
+
+body.locked {
+  overflow: hidden;
+}
 </style>
 </head>
 
@@ -271,6 +281,74 @@ if (saved !== null) {
 }
 
 updateProgress();
+// ===============================================
+// 5. VIEWPORT SCROLL CONTROLLER (HARD SNAP)
+// ===============================================
+
+const sections = Array.from(document.querySelectorAll("section"));
+let currentIndex = 0;
+let isScrolling = false;
+
+// Ensure correct index on load
+function syncIndex() {
+  const y = window.scrollY;
+  const vh = window.innerHeight;
+  currentIndex = Math.round(y / vh);
+}
+syncIndex();
+
+// Core scroll function
+function goToSection(index) {
+  if (index < 0 || index >= sections.length) return;
+  isScrolling = true;
+  currentIndex = index;
+
+  window.scrollTo({
+    top: sections[index].offsetTop,
+    behavior: "smooth"
+  });
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 700); // must match animation feel
+}
+
+// Wheel handling (desktop / trackpad)
+window.addEventListener("wheel", (e) => {
+  if (isScrolling) return;
+
+  if (e.deltaY > 30) {
+    goToSection(currentIndex + 1);
+  } else if (e.deltaY < -30) {
+    goToSection(currentIndex - 1);
+  }
+}, { passive: true });
+
+// Touch handling (mobile)
+let touchStartY = 0;
+
+window.addEventListener("touchstart", (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener("touchend", (e) => {
+  if (isScrolling) return;
+
+  const deltaY = touchStartY - e.changedTouches[0].clientY;
+
+  if (deltaY > 50) {
+    goToSection(currentIndex + 1);
+  } else if (deltaY < -50) {
+    goToSection(currentIndex - 1);
+  }
+}, { passive: true });
+
+// Keep index in sync on resize / refresh
+window.addEventListener("resize", syncIndex);
+window.addEventListener("load", () => {
+  document.body.classList.add("locked");
+  goToSection(currentIndex);
+});
 </script>
 
 </body>
